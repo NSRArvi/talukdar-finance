@@ -1,0 +1,90 @@
+/**
+ * Talukdar Finance — Design System Tokens
+ * Brand Colours:
+ * - Deep Navy: #103B78
+ * - Primary Blue: #246BFD
+ * - Cloud White: #FFFFFF
+ * - Soft Blue Background: #F3F7FC
+ * - Main Text: #172B4D
+ * - Secondary Text: #64748B
+ * - Border: #E2E8F0
+ */
+
+:root {
+  /* Brand Colours */
+  --color-brand-navy: #103B78;
+  --color-brand-navy-dark: #0A254D;
+  --color-brand-navy-light: #184D98;
+  --color-brand-blue: #246BFD;
+  --color-brand-blue-hover: #1A54D4;
+  --color-brand-blue-subtle: #EBF1FF;
+  --color-brand-white: #FFFFFF;
+  --color-brand-soft-blue: #F3F7FC;
+  --color-brand-text: #172B4D;
+  --color-brand-text-muted: #64748B;
+  --color-brand-border: #E2E8F0;
+  --color-brand-border-subtle: #EEF2F6;
+
+  /* Semantic UI Tokens */
+  --background: var(--color-brand-white);
+  --foreground: var(--color-brand-text);
+  --muted: var(--color-brand-text-muted);
+  --surface: var(--color-brand-soft-blue);
+  --border: var(--color-brand-border);
+
+  /* Typography Scale (Fluid) */
+  --font-size-display: clamp(2.5rem, 5vw + 1rem, 4rem);
+  --font-size-h1: clamp(2rem, 3.5vw + 0.5rem, 3rem);
+  --font-size-h2: clamp(1.625rem, 2.5vw + 0.5rem, 2.25rem);
+  --font-size-h3: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+  --font-size-h4: clamp(1.125rem, 1vw + 0.5rem, 1.375rem);
+  --font-size-body-lg: 1.125rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-caption: 0.75rem;
+
+  /* Line Heights */
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+
+  /* Spacing Scale */
+  --spacing-section-py: clamp(3.5rem, 7vw, 6.5rem);
+  --spacing-container-px: clamp(1rem, 4vw, 2.5rem);
+  --container-max-w: 80rem; /* 1280px */
+  --container-narrow-max-w: 64rem; /* 1024px */
+
+  /* Border Radii */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(16, 59, 120, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(16, 59, 120, 0.08), 0 2px 6px -1px rgba(16, 59, 120, 0.04);
+  --shadow-card-hover: 0 12px 30px -4px rgba(16, 59, 120, 0.12), 0 4px 10px -2px rgba(16, 59, 120, 0.06);
+  --shadow-dropdown: 0 10px 25px -5px rgba(16, 59, 120, 0.1), 0 8px 10px -6px rgba(16, 59, 120, 0.05);
+
+  /* Animation Durations & Easings */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* Z-Index Hierarchy */
+  --z-base: 0;
+  --z-card: 1;
+  --z-dropdown: 50;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-modal-backdrop: 500;
+  --z-modal: 600;
+  --z-toast: 1000;
+}
+
