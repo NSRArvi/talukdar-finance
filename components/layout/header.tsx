@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,7 +31,7 @@ const navLinks = [
   },
   {
     href: "#journey",
-    label: "Process",
+    label: "Steps",
     subtitle: "From discovery to settlement",
     tag: "03",
   },
@@ -42,7 +43,7 @@ const navLinks = [
   },
   {
     href: "#faqs",
-    label: "FAQ",
+    label: "FAQs",
     subtitle: "Clear answers before you begin",
     tag: "05",
   },
@@ -69,7 +70,7 @@ export function Header() {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 15);
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -83,26 +84,26 @@ export function Header() {
 
   return (
     <>
+      {/* Permanent Sticky Top Navbar */}
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           scrolled
             ? "border-b border-[var(--color-brand-border)] bg-white/95 backdrop-blur-md shadow-sm py-2"
-            : "border-b border-transparent bg-white/90 backdrop-blur-sm py-3"
+            : "border-b border-[var(--color-brand-border)]/60 bg-white/90 backdrop-blur-sm py-3"
         }`}
       >
         <Container size="default" className="flex items-center justify-between">
           {/* Brand Identity */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group z-50">
-            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[var(--color-brand-navy)] flex items-center justify-center text-white font-bold text-lg sm:text-xl tracking-wider shadow-sm group-hover:bg-[var(--color-brand-blue)] transition-colors shrink-0">
-              TF
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-base sm:text-lg font-bold tracking-tight text-[var(--color-brand-navy)] leading-tight truncate">
-                Talukdar Finance
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-medium tracking-wide uppercase text-[var(--color-brand-text-muted)] truncate">
-                Private Wealth &amp; Lending
-              </span>
+          <Link href="/" className="flex items-center gap-2 group z-50">
+            <div className="relative h-10 w-[110px] sm:h-12 sm:w-[130px] shrink-0">
+              <Image
+                src="/tf-logo.png"
+                alt="Talukdar Finance Logo"
+                fill
+                priority
+                className="object-contain object-left"
+                sizes="(max-width: 640px) 110px, 130px"
+              />
             </div>
           </Link>
 
@@ -143,71 +144,76 @@ export function Header() {
               type="button"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden h-10 w-10 rounded-xl border border-[var(--color-brand-border)] bg-white/90 backdrop-blur-md flex items-center justify-center text-[var(--color-brand-navy)] hover:bg-[var(--color-brand-soft-blue)] transition-colors cursor-pointer shadow-sm active:scale-95 shrink-0"
+              className="lg:hidden relative z-[60] h-10 w-10 rounded-xl border border-[var(--color-brand-border)] bg-white hover:bg-slate-50 flex items-center justify-center text-[var(--color-brand-navy)] transition-colors cursor-pointer shadow-sm active:scale-95 shrink-0"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                {mobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="h-5 w-5" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="h-5 w-5" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 text-[var(--color-brand-navy)] shrink-0" />
+              ) : (
+                <Menu className="h-6 w-6 text-[var(--color-brand-navy)] shrink-0" />
+              )}
             </button>
           </div>
         </Container>
       </header>
 
-      {/* Full-Screen Premium Mobile Menu */}
+      {/* Light Full-Screen Mobile Menu Matching Navbar & Footer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 bg-[var(--color-brand-navy)] text-white flex flex-col justify-between pt-24 pb-8 px-4 sm:px-6 lg:hidden overflow-y-auto overflow-x-hidden w-screen max-w-full"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-0 z-40 bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-text)] flex flex-col justify-between pb-8 px-4 sm:px-6 lg:hidden overflow-y-auto overflow-x-hidden w-screen max-w-full"
           >
-            {/* Subtle Ambient Glow Background */}
-            <div className="absolute top-1/4 right-0 w-72 h-72 bg-[var(--color-brand-blue)]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-10 left-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+            {/* Top Bar inside Menu matching Header height to ensure Close Button is 100% visible */}
+            <div className="flex items-center justify-between pb-4 pt-1 border-b border-[var(--color-brand-border)] mb-4">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="inline-block">
+                <div className="relative h-9 w-[115px] shrink-0">
+                  <Image
+                    src="/tf-logo.png"
+                    alt="Talukdar Finance Logo"
+                    fill
+                    priority
+                    className="object-contain object-left"
+                    sizes="115px"
+                  />
+                </div>
+              </Link>
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setMobileMenuOpen(false)}
+                className="h-10 w-10 rounded-xl border border-[var(--color-brand-border)] bg-white hover:bg-slate-50 flex items-center justify-center text-[var(--color-brand-navy)] transition-colors cursor-pointer shadow-sm active:scale-95 shrink-0"
+              >
+                <X className="h-6 w-6 text-[var(--color-brand-navy)]" />
+              </button>
+            </div>
+            {/* Subtle Clean Ambient Highlights */}
+            <div className="absolute top-1/4 right-0 w-72 h-72 bg-blue-100/60 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-10 left-0 w-64 h-64 bg-white/80 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col flex-1 max-w-md mx-auto w-full">
               {/* Category Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
-                <span className="text-[11px] font-bold tracking-widest uppercase text-blue-200">
+              <div className="flex items-center justify-between pb-3 border-b border-[var(--color-brand-border)] mb-3">
+                <span className="text-[11px] font-bold tracking-widest uppercase text-[var(--color-brand-blue)]">
                   Navigation &amp; Services
                 </span>
-                <span className="text-[11px] font-medium text-white/50">
+                <span className="text-[11px] font-semibold text-[var(--color-brand-text-muted)]">
                   Talukdar Finance
                 </span>
               </div>
 
-              {/* Navigation Links with Safe Staggered Entrance */}
-              <nav className="flex flex-col gap-1 my-auto py-2 w-full">
+              {/* Navigation Links in Clean Light Style */}
+              <nav className="flex flex-col gap-1.5 my-auto py-2 w-full">
                 {navLinks.map((link, idx) => (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      delay: 0.05 + idx * 0.04,
-                      duration: 0.3,
+                      delay: 0.04 + idx * 0.04,
+                      duration: 0.25,
                       ease: "easeOut",
                     }}
                     className="w-full"
@@ -215,22 +221,22 @@ export function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="group flex items-center justify-between p-3 rounded-2xl hover:bg-white/10 active:bg-white/15 transition-all duration-200 border border-transparent hover:border-white/10 w-full"
+                      className="group flex items-center justify-between p-3.5"
                     >
                       <div className="flex items-center gap-3 min-w-0 pr-2">
-                        <span className="text-xs font-mono font-bold text-[var(--color-brand-blue)] group-hover:text-white transition-colors shrink-0">
+                        <span className="text-xs font-mono font-bold text-[var(--color-brand-blue)] shrink-0">
                           {link.tag}
                         </span>
                         <div className="flex flex-col min-w-0">
-                          <span className="text-base sm:text-lg font-bold text-white group-hover:text-blue-100 transition-colors truncate">
+                          <span className="text-base font-bold text-[var(--color-brand-navy)] group-hover:text-[var(--color-brand-blue)] transition-colors truncate">
                             {link.label}
                           </span>
-                          <span className="text-[11px] sm:text-xs text-blue-200/70 font-normal truncate">
+                          <span className="text-[11px] sm:text-xs text-[var(--color-brand-text-muted)] font-normal truncate">
                             {link.subtitle}
                           </span>
                         </div>
                       </div>
-                      <div className="h-7 w-7 rounded-full bg-white/5 group-hover:bg-[var(--color-brand-blue)] flex items-center justify-center text-white/60 group-hover:text-white transition-all shrink-0">
+                      <div className="h-7 w-7 rounded-full bg-[var(--color-brand-soft-blue)] group-hover:bg-[var(--color-brand-blue)] flex items-center justify-center text-[var(--color-brand-navy)] group-hover:text-white transition-all shrink-0">
                         <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                       </div>
                     </Link>
@@ -238,53 +244,61 @@ export function Header() {
                 ))}
               </nav>
 
-              {/* Premium Advisory Contact Card */}
+              {/* Light Advisory Contact Card */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.35 }}
-                className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-3 w-full"
+                transition={{ delay: 0.28, duration: 0.3 }}
+                className="mt-4 pt-4 border-t border-[var(--color-brand-border)] flex flex-col gap-3 w-full"
               >
-                <div className="grid grid-cols-2 gap-2 w-full">
+                <div className="grid grid-cols-2 gap-2.5 w-full">
                   <a
                     href="tel:+61280000000"
-                    className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors min-w-0"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[var(--color-brand-border)] hover:border-[var(--color-brand-blue)] transition-colors shadow-sm min-w-0"
                   >
-                    <div className="h-7 w-7 rounded-lg bg-[var(--color-brand-blue)] flex items-center justify-center shrink-0">
-                      <Phone className="h-3.5 w-3.5 text-white" />
+                    <div className="h-8 w-8 rounded-lg bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0">
+                      <Phone className="h-4 w-4" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-[9px] text-blue-200/70 uppercase font-semibold">Direct Call</span>
-                      <span className="text-[11px] font-bold text-white truncate">+61 2 8000</span>
+                      <span className="text-[9px] text-[var(--color-brand-text-muted)] uppercase font-semibold">
+                        Call Directly
+                      </span>
+                      <span className="text-xs font-bold text-[var(--color-brand-navy)] truncate">
+                        +61 2 8000
+                      </span>
                     </div>
                   </a>
 
                   <a
                     href="mailto:advisory@talukdarfinance.com.au"
-                    className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors min-w-0"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[var(--color-brand-border)] hover:border-[var(--color-brand-blue)] transition-colors shadow-sm min-w-0"
                   >
-                    <div className="h-7 w-7 rounded-lg bg-[var(--color-brand-blue)] flex items-center justify-center shrink-0">
-                      <Mail className="h-3.5 w-3.5 text-white" />
+                    <div className="h-8 w-8 rounded-lg bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0">
+                      <Mail className="h-4 w-4" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-[9px] text-blue-200/70 uppercase font-semibold">Email Desk</span>
-                      <span className="text-[11px] font-bold text-white truncate">advisory@</span>
+                      <span className="text-[9px] text-[var(--color-brand-text-muted)] uppercase font-semibold">
+                        Email Desk
+                      </span>
+                      <span className="text-xs font-bold text-[var(--color-brand-navy)] truncate">
+                        advisory@
+                      </span>
                     </div>
                   </a>
                 </div>
 
-                {/* Primary Consultation Action */}
+                {/* Primary Consultation Action Button */}
                 <button
                   type="button"
                   onClick={handleConsultationClick}
-                  className="w-full h-11 rounded-xl bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue-hover)] text-white font-bold text-sm tracking-wide shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]"
+                  className="w-full h-12 rounded-xl bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue-hover)] text-white font-bold text-sm tracking-wide shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]"
                 >
                   <span>Book a Consultation</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
 
                 {/* Regulatory Trust Badge */}
-                <div className="flex items-center justify-center gap-1.5 text-[10px] text-blue-200/80 pt-0.5 text-center">
+                <div className="flex items-center justify-center gap-1.5 text-[10px] text-[var(--color-brand-text-muted)] pt-0.5 text-center">
                   <ShieldCheck className="h-3.5 w-3.5 text-[var(--color-brand-blue)] shrink-0" />
                   <span>MFAA Accredited | Australian Credit Representative</span>
                 </div>

@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 import { motion } from "motion/react";
 
 interface JourneyStep {
@@ -55,7 +54,6 @@ export function ProcessJourneySection() {
       <Container size="default">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
-          <Badge variant="primary">SIMPLE & TRANSPARENT</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] mt-3 mb-2">
             Your Finance Journey, Made Clear
           </h2>

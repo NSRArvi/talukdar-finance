@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -57,7 +56,6 @@ export function FAQSection() {
       <Container size="narrow">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-14">
-          <Badge variant="primary">ANSWERS & CLARITY</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] mt-3 mb-2">
             Questions Before You Get Started?
           </h2>

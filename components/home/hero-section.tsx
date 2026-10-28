@@ -250,21 +250,8 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 items-center">
           {/* Left Column: Typography & CTAs */}
           <div className="lg:col-span-6 flex flex-col items-start gap-4 sm:gap-6 z-10">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={`badge-${activeSlide.id}`}
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Badge variant="primary" size="md">
-                  {activeSlide.badgeText}
-                </Badge>
-              </motion.div>
-            </AnimatePresence>
 
-            <div className="min-h-0 sm:min-h-[120px] lg:min-h-[140px] flex items-center">
+            <div className="min-h-0 sm:h-[120px] lg:h-[140px] flex items-center">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.h1
                   key={`title-${activeSlide.id}`}
@@ -461,30 +448,7 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-
-        {/* Slider Indicator Progress Bar Line */}
-        <div className="w-full flex items-center gap-2 mt-8 sm:mt-12 pt-2 sm:pt-4">
-          {heroSlides.map((_, idx) => {
-            const isCurrent = currentSlide === idx;
-            return (
-              <button
-                key={idx}
-                type="button"
-                aria-label={`Jump to slide ${idx + 1}`}
-                onClick={() => goToSlide(idx)}
-                className="h-1.5 flex-1 rounded-full bg-slate-200 overflow-hidden relative cursor-pointer"
-              >
-                {isCurrent && (
-                  <motion.div
-                    layoutId="sliderIndicatorLine"
-                    className="absolute inset-0 bg-[var(--color-brand-blue)] rounded-full"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
+        
       </Container>
     </section>
   );

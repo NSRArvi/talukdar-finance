@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { User, FileText, LifeBuoy, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
@@ -47,7 +46,6 @@ export function CommitmentSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Heading and Context */}
           <div className="lg:col-span-5 flex flex-col items-start gap-5">
-            <Badge variant="navy">OUR COMMITMENT</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] leading-tight">
               A More Personal Approach to Finance
             </h2>

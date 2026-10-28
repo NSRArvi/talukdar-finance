@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -76,7 +75,6 @@ export function ConsultationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           {/* Left Column: Direct Contact & Guarantees */}
           <div className="lg:col-span-5 flex flex-col items-start gap-6">
-            <Badge variant="primary">START A CONVERSATION</Badge>
 
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] leading-tight">
               Let&apos;s Find a Way Forward.

@@ -1,0 +1,183 @@
+[
+  {
+    "id": "first-home-buyer",
+    "category": "residential",
+    "iconName": "Home",
+    "title": "First Home Buyer Loans",
+    "badge": "Government Schemes Eligible",
+    "description": "Assisting first-time property purchasers access First Home Guarantee (FHBG), stamp duty concessions, and maximum borrowing capacity across Australia.",
+    "features": [
+      "Access to 5% deposit schemes without LMI",
+      "Stamp duty exemption & concession guidance",
+      "Pre-approval to bid with auction confidence"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore First Home Loans"
+  },
+  {
+    "id": "refinancing-equity",
+    "category": "residential",
+    "iconName": "RefreshCw",
+    "title": "Refinancing & Equity Release",
+    "badge": "Rate Reduction",
+    "description": "Restructure existing debt to secure lower interest rates, unlock home equity for renovations, or consolidate high-interest credit into one manageable payment.",
+    "features": [
+      "Lender comparison across 35+ Australian banks",
+      "Cash out equity for renovations or investments",
+      "Debt consolidation to lower monthly repayments"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Review Refinance Options"
+  },
+  {
+    "id": "investment-property",
+    "category": "residential",
+    "iconName": "TrendingUp",
+    "title": "Property Investment Loans",
+    "badge": "Tax Effective",
+    "description": "Strategically structured mortgages for Australian property investors, leveraging interest-only options, offset facilities, and cross-collateralization avoidance.",
+    "features": [
+      "Interest-only (IO) and principal & interest (P&I)",
+      "Multi-property portfolio lending structures",
+      "Multiple offset account capabilities"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Investment Loans"
+  },
+  {
+    "id": "construction-loans",
+    "category": "residential",
+    "iconName": "HardHat",
+    "title": "Construction & Development",
+    "badge": "Progress Drawdowns",
+    "description": "Specialised stage-based funding for knockdown rebuilds, custom architectural homes, and multi-dwelling residential developments with progressive progress payments.",
+    "features": [
+      "Progress payment drawdown management",
+      "Interest charged only on drawn amounts",
+      "Coordination with builder progress inspection claims"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Construction Loans"
+  },
+  {
+    "id": "car-vehicle-finance",
+    "category": "asset",
+    "iconName": "Car",
+    "title": "Car & Vehicle Finance",
+    "badge": "Fast 24h Approval",
+    "description": "Competitive consumer car loans, novated leases, and dealer purchase finance for personal vehicles, luxury cars, and family upgrades with zero dealer markup trap.",
+    "features": [
+      "New and used vehicle financing",
+      "Fixed rates with flexible balloon payment options",
+      "Fast 24-48 hour lender turnaround"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Vehicle Finance"
+  },
+  {
+    "id": "equipment-machinery",
+    "category": "asset",
+    "iconName": "Wrench",
+    "title": "Equipment & Machinery Finance",
+    "badge": "Chattel Mortgage",
+    "description": "Asset funding for yellow goods, medical apparatus, commercial transport, and industrial machinery via chattel mortgage, hire purchase, and operating leases.",
+    "features": [
+      "Immediate GST input tax credit recovery (chattel mortgage)",
+      "No property collateral required in many cases",
+      "Seasonal and bespoke repayment structures"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Equipment Finance"
+  },
+  {
+    "id": "commercial-property",
+    "category": "commercial",
+    "iconName": "Building",
+    "title": "Commercial Property Loans",
+    "badge": "Offices & Warehouses",
+    "description": "Long-term acquisition and refinance facilities for commercial real estate, retail shopfronts, industrial warehouses, and medical suites.",
+    "features": [
+      "Owner-occupied and commercial investment loans",
+      "Up to 70-80% LVR on prime commercial assets",
+      "Interest-only and capital repayment terms"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Commercial Loans"
+  },
+  {
+    "id": "business-growth-cashflow",
+    "category": "commercial",
+    "iconName": "Briefcase",
+    "title": "Business Working Capital & Cash Flow",
+    "badge": "Unsecured & Secured",
+    "description": "Flexible revolving lines of credit, debtor finance, invoice discounting, and overdraft facilities designed to stabilise trade cycles and fuel Australian SME growth.",
+    "features": [
+      "Overdrafts & business lines of credit",
+      "Invoice and debtor financing solutions",
+      "Low-doc options for established trading businesses"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Business Facilities"
+  },
+  {
+    "id": "smsf-lending",
+    "category": "commercial",
+    "iconName": "Layers",
+    "title": "SMSF Property Lending",
+    "badge": "Self-Managed Super",
+    "description": "Limited Recourse Borrowing Arrangements (LRBA) allowing your Self-Managed Super Fund to purchase qualifying residential or commercial property in Australia.",
+    "features": [
+      "Compliant with ATO and SIS Act LRBA regulations",
+      "Commercial and residential SMSF investment",
+      "Specialist bare trust legal coordination"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore SMSF Lending"
+  },
+  {
+    "id": "personal-loans",
+    "category": "personal",
+    "iconName": "UserCheck",
+    "title": "Personal & Debt Consolidation Loans",
+    "badge": "Fixed Rates",
+    "description": "Unsecured and secured personal loans for medical procedures, debt consolidation, wedding planning, and major life milestones with fixed monthly instalments.",
+    "features": [
+      "Flexible borrowing from $5,000 to $100,000",
+      "Fixed rate certainty with no early payout penalties",
+      "Funds disbursed promptly upon approval"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Personal Loans"
+  },
+  {
+    "id": "medical-professional-lending",
+    "category": "residential",
+    "iconName": "Sparkles",
+    "title": "Specialist & High-Earner Packages",
+    "badge": "Waived LMI (Up to 90-95%)",
+    "description": "Exclusive lender policies for doctors, dentists, accountants, lawyers, and eligible professionals allowing up to 90-95% LVR without Lenders Mortgage Insurance.",
+    "features": [
+      "LMI waiver saving tens of thousands upfront",
+      "Generous borrowing capacity policies",
+      "Private banker direct channel access"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Professional Packages"
+  },
+  {
+    "id": "bridging-finance",
+    "category": "residential",
+    "iconName": "GraduationCap",
+    "title": "Bridging Finance",
+    "badge": "Buy Before You Sell",
+    "description": "Short-term finance designed to bridge the financial gap when you want to purchase a new property before completing the sale of your existing residence.",
+    "features": [
+      "Buy dream home without rushed property selling",
+      "Interest capitalized during peak transition period",
+      "Up to 12 months bridging period flexibility"
+    ],
+    "imageSrc": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    "actionText": "Explore Bridging Options"
+  }
+]
+

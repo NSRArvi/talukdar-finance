@@ -13,7 +13,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="relative min-h-screen flex flex-col bg-white overflow-x-clip">
       <Header />
       <main className="flex-1 flex flex-col">
         <HeroSection />

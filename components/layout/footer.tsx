@@ -1,156 +1,176 @@
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import { ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-slate-700 bg-[#0A254D] text-slate-100">
-      <Container size="default" className="py-14 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 mb-12">
-          {/* Brand Info */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center text-white font-bold text-xl shadow-md">
-                TF
+    <footer className="w-full bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-text)] border-t border-[var(--color-brand-border)]">
+      <Container size="default" className="pt-16 pb-12">
+        {/* Top 4-Column Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12">
+          {/* Brand Info & Mission */}
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <Link href="/" className="inline-flex items-center gap-2.5">
+              <div className="relative h-9 w-[130px] shrink-0">
+                <Image
+                  src="/tf-logo.png"
+                  alt="Talukdar Finance Logo"
+                  fill
+                  className="object-contain object-left"
+                  sizes="130px"
+                />
               </div>
-              <div>
-                <span className="text-lg font-bold tracking-tight text-white block">
-                  Talukdar Finance
-                </span>
-                <span className="text-xs text-blue-200 font-medium">
-                  Private Wealth &amp; Lending
-                </span>
-              </div>
-            </div>
-            <p className="text-sm text-slate-200 leading-relaxed">
-              Personalised lending solutions and credit strategy for home loans, vehicle finance, personal loans, and business growth across Australia.
+            </Link>
+            <p className="text-sm text-[var(--color-brand-text-muted)] leading-relaxed max-w-sm">
+              Bespoke financial architecture and advisory for Australian residential buyers, property investors, and commercial enterprises. Institutional expertise delivered with private banking discretion.
             </p>
-            <div className="flex items-center gap-2 text-xs text-blue-200 font-medium">
-              <ShieldCheck className="h-4 w-4 text-[var(--color-brand-blue)] shrink-0" />
-              <span>MFAA Accredited | Australian Credit Representative</span>
-            </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white">
-              Finance Solutions
+          {/* FINANCE Column */}
+          <div className="lg:col-span-2 flex flex-col gap-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)]">
+              Finance
             </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-slate-200">
+            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
               <li>
-                <Link href="#solutions" className="hover:text-white hover:underline transition-colors">
-                  Residential Home Loans
+                <Link
+                  href="#solutions"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Home Loans
                 </Link>
               </li>
               <li>
-                <Link href="#solutions" className="hover:text-white hover:underline transition-colors">
-                  Vehicle &amp; Car Finance
+                <Link
+                  href="#solutions"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Car Loans
                 </Link>
               </li>
               <li>
-                <Link href="#solutions" className="hover:text-white hover:underline transition-colors">
+                <Link
+                  href="#solutions"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
                   Personal Loans
                 </Link>
               </li>
               <li>
-                <Link href="#solutions" className="hover:text-white hover:underline transition-colors">
-                  Commercial &amp; Business Finance
-                </Link>
-              </li>
-              <li>
-                <Link href="#solutions" className="hover:text-white hover:underline transition-colors">
-                  Refinancing &amp; Equity Release
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Regulatory & Process */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white">
-              The Journey
-            </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-slate-200">
-              <li>
-                <Link href="#journey" className="hover:text-white hover:underline transition-colors">
-                  Stage 01: Initial Discovery
-                </Link>
-              </li>
-              <li>
-                <Link href="#journey" className="hover:text-white hover:underline transition-colors">
-                  Stage 02: Product Comparison
-                </Link>
-              </li>
-              <li>
-                <Link href="#journey" className="hover:text-white hover:underline transition-colors">
-                  Stage 03: Document Checklist
-                </Link>
-              </li>
-              <li>
-                <Link href="#journey" className="hover:text-white hover:underline transition-colors">
-                  Stage 04: Settlement &amp; Beyond
-                </Link>
-              </li>
-              <li>
-                <Link href="#faqs" className="hover:text-white hover:underline transition-colors">
-                  Frequently Asked Questions
+                <Link
+                  href="#solutions"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Business Finance
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact Details */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white">
-              Advisory Office
+          {/* COMPANY Column */}
+          <div className="lg:col-span-2 flex flex-col gap-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)]">
+              Company
             </h4>
-            <div className="flex flex-col gap-3 text-sm text-slate-200">
-              <a
-                href="tel:+61280000000"
-                className="flex items-center gap-2.5 hover:text-white transition-colors"
-              >
-                <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-[var(--color-brand-blue)] shrink-0">
-                  <Phone className="h-4 w-4" />
-                </div>
-                <span className="font-semibold text-white">+61 (02) 8000 0000</span>
-              </a>
-              <a
-                href="mailto:advisory@talukdarfinance.com.au"
-                className="flex items-center gap-2.5 hover:text-white transition-colors"
-              >
-                <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-[var(--color-brand-blue)] shrink-0">
-                  <Mail className="h-4 w-4" />
-                </div>
-                <span className="break-all">advisory@talukdarfinance.com.au</span>
-              </a>
-              <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-[var(--color-brand-blue)] shrink-0">
-                  <MapPin className="h-4 w-4" />
-                </div>
-                <span>Australia Wide Services</span>
-              </div>
-            </div>
+            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
+              <li>
+                <Link
+                  href="#about"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#journey"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  How It Works
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#reviews"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Client Stories
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#faqs"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#consultation"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* INFORMATION Column */}
+          <div className="lg:col-span-3 flex flex-col gap-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)]">
+              Information
+            </h4>
+            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Terms of Use
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Complaints Handling
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Credit Guide &amp; Disclosures
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Regulatory Disclosure & Legal Bottom Bar */}
-        <div className="pt-8 border-t border-slate-700/80 text-xs text-slate-300 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <p className="leading-relaxed max-w-2xl">
-            © 2026 Talukdar Finance. All rights reserved. Disclaimer: The information provided on this website is of a general nature only and does not take into account personal objectives or individual financial circumstances.
+        {/* Regulatory & Legal Box */}
+        <div className="rounded-2xl bg-white border border-[var(--color-brand-border)] p-6 sm:p-7 flex flex-col gap-4 shadow-sm">
+          <p className="text-xs text-[var(--color-brand-text-muted)] leading-relaxed">
+            Talukdar Finance Pty Ltd (ABN 00 000 000 000) is an Authorized Credit Representative (CRN 000000) of Australian Lending Licence Group Pty Ltd, Australian Credit Licence (ACL) No. 000000.
           </p>
-          <div className="flex flex-wrap items-center gap-3 text-slate-200">
-            <Link href="#" className="hover:text-white transition-colors underline-offset-4 hover:underline">
-              Privacy Policy
-            </Link>
-            <span>•</span>
-            <Link href="#" className="hover:text-white transition-colors underline-offset-4 hover:underline">
-              Credit Guide
-            </Link>
-            <span>•</span>
-            <Link href="#" className="hover:text-white transition-colors underline-offset-4 hover:underline">
-              Terms of Use
-            </Link>
+          <p className="text-xs text-[var(--color-brand-text-muted)] leading-relaxed">
+            Disclaimer: The material on this website provides general information only and does not consider your personal objectives, financial situation, or specific needs. All lending applications are subject to credit assessment, verification, and lender approval. Terms, conditions, fees, and charges apply.
+          </p>
+
+          <div className="pt-4 border-t border-[var(--color-brand-border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[var(--color-brand-text-muted)]">
+            <span>© {new Date().getFullYear()} Talukdar Finance Pty Ltd. All rights reserved.</span>
+            <span>Regulated by the Australian Securities and Investments Commission (ASIC).</span>
           </div>
         </div>
       </Container>
