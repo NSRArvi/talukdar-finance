@@ -15,12 +15,20 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ className, options, placeholder, hasError, disabled, ...props }, ref) => {
+  ({ className, options, placeholder, hasError, disabled, defaultValue, value, ...props }, ref) => {
+    // Determine the controlled or default value; if placeholder is present and neither value nor defaultValue is passed, default to ""
+    const computedDefaultValue =
+      value === undefined && defaultValue === undefined && placeholder !== undefined
+        ? ""
+        : defaultValue;
+
     return (
       <div className="relative flex items-center w-full">
         <select
           ref={ref}
           disabled={disabled}
+          value={value}
+          defaultValue={computedDefaultValue}
           className={cn(
             "w-full h-11 appearance-none rounded-lg border bg-white pl-3.5 pr-10 text-base text-[var(--color-brand-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-blue)] focus-visible:border-[var(--color-brand-blue)] disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400",
             hasError
@@ -31,7 +39,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           {...props}
         >
           {placeholder && (
-            <option value="" disabled selected hidden>
+            <option value="" disabled hidden>
               {placeholder}
             </option>
           )}

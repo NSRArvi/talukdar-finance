@@ -18,31 +18,31 @@ import { motion, AnimatePresence } from "motion/react";
 
 const navLinks = [
   {
-    href: "#solutions",
+    href: "/solutions",
     label: "Solutions",
     subtitle: "Home, vehicle, personal & commercial",
     tag: "01",
   },
   {
-    href: "#commitment",
+    href: "/approach",
     label: "Approach",
     subtitle: "Advisory built around your goals",
     tag: "02",
   },
   {
-    href: "#journey",
+    href: "/steps",
     label: "Steps",
     subtitle: "From discovery to settlement",
     tag: "03",
   },
   {
-    href: "#about",
+    href: "/about",
     label: "About",
     subtitle: "MFAA accredited finance specialist",
     tag: "04",
   },
   {
-    href: "#faqs",
+    href: "/faqs",
     label: "FAQs",
     subtitle: "Clear answers before you begin",
     tag: "05",

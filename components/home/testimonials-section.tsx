@@ -45,7 +45,6 @@ export function TestimonialsSection() {
         {/* Header & ASIC Regulatory Note */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <div className="flex flex-col items-start gap-2 max-w-xl">
-            <Badge variant="neutral">CLIENT PERSPECTIVES (PLACEHOLDER COPY FOR REVIEW)</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] mt-2">
               Experiences That Matter
             </h2>

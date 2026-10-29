@@ -54,7 +54,6 @@ export function AboutBrokerSection() {
 
           {/* Right: Personal Advisory Pitch & Credentials */}
           <div className="lg:col-span-7 flex flex-col items-start gap-6">
-            <Badge variant="navy">ADVISORY WITH INTEGRITY</Badge>
 
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] leading-tight">
               Real Conversations. Personal Guidance.

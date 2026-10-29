@@ -97,9 +97,6 @@ export function LoanSolutionsSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div className="flex flex-col items-start gap-3 max-w-3xl">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] border border-[var(--color-brand-blue)]/20">
-              SOLUTIONS &amp; PATHWAYS
-            </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-brand-navy)]">
               Comprehensive Finance Facilities Across Australia
             </h2>

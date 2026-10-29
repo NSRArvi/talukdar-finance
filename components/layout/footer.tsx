@@ -35,7 +35,7 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
               <li>
                 <Link
-                  href="#solutions"
+                  href="/solutions"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Home Loans
@@ -43,7 +43,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#solutions"
+                  href="/solutions"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Car Loans
@@ -51,7 +51,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#solutions"
+                  href="/solutions"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Personal Loans
@@ -59,7 +59,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#solutions"
+                  href="/solutions"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Business Finance
@@ -76,7 +76,7 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
               <li>
                 <Link
-                  href="#about"
+                  href="/about"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   About Us
@@ -84,7 +84,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#journey"
+                  href="/steps"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   How It Works
@@ -92,7 +92,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#reviews"
+                  href="/approach"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Client Stories
@@ -100,7 +100,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#faqs"
+                  href="/faqs"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   FAQs
@@ -108,7 +108,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#consultation"
+                  href="/#consultation"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Contact
@@ -169,7 +169,7 @@ export function Footer() {
           </p>
 
           <div className="pt-4 border-t border-[var(--color-brand-border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[var(--color-brand-text-muted)]">
-            <span>© {new Date().getFullYear()} Talukdar Finance Pty Ltd. All rights reserved.</span>
+            <span>© 2026 Talukdar Finance Pty Ltd. All rights reserved.</span>
             <span>Regulated by the Australian Securities and Investments Commission (ASIC).</span>
           </div>
         </div>
