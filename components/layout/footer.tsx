@@ -125,7 +125,15 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
               <li>
                 <Link
-                  href="#"
+                  href="/insights"
+                  className="hover:text-[var(--color-brand-blue)] transition-colors"
+                >
+                  Insights
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Privacy Policy
@@ -133,26 +141,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/terms"
                   className="hover:text-[var(--color-brand-blue)] transition-colors"
                 >
                   Terms of Use
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Complaints Handling
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Credit Guide &amp; Disclosures
                 </Link>
               </li>
             </ul>

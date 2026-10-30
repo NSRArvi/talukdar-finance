@@ -7,12 +7,15 @@ import { Phone, Mail, CheckCircle2, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { createClient } from "@/lib/supabase/client";
+import type { ServiceCategory } from "@/types";
 
 const consultationSchema = z.object({
   fullName: z.string().min(2, "Please enter your full name"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(8, "Please enter a valid phone number"),
   financeType: z.string().min(1, "Please select a finance category"),
+  serviceName: z.string().optional(),
   contactMethod: z.enum(["phone", "email"]),
   message: z.string().optional(),
   agreePrivacy: z.literal(true, {
@@ -22,18 +25,50 @@ const consultationSchema = z.object({
 
 type ConsultationFormValues = z.infer<typeof consultationSchema>;
 
-const financeOptions = [
-  { value: "home-loan", label: "Home Loans" },
-  { value: "car-loan", label: "Car Loans" },
-  { value: "personal-loan", label: "Personal Loans" },
-  { value: "business-finance", label: "Business Finance" },
-  { value: "refinance", label: "Refinancing & Equity Release" },
-  { value: "commercial-property", label: "Commercial Property Loans" },
-  { value: "smsf", label: "SMSF Property Lending" },
-];
+interface ConsultationSectionProps {
+  initialCategory?: string;
+  initialServiceName?: string;
+}
 
-export function ConsultationSection() {
+export function ConsultationSection({
+  initialCategory,
+  initialServiceName,
+}: ConsultationSectionProps) {
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [categories, setCategories] = React.useState<ServiceCategory[]>([]);
+  const [loadingCategories, setLoadingCategories] = React.useState(true);
+  const [selectedService, setSelectedService] = React.useState<string>(
+    initialServiceName || ""
+  );
+
+  // Fetch dynamic categories directly from server
+  React.useEffect(() => {
+    let active = true;
+
+    async function loadCategories() {
+      try {
+        const res = await fetch("/api/categories", {
+          cache: "no-store",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (active && Array.isArray(data.categories)) {
+            setCategories(data.categories);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load categories:", err);
+      } finally {
+        if (active) setLoadingCategories(false);
+      }
+    }
+
+    loadCategories();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const {
     register,
@@ -48,20 +83,72 @@ export function ConsultationSection() {
       fullName: "",
       email: "",
       phone: "",
-      financeType: "",
+      financeType: initialCategory || "",
+      serviceName: initialServiceName || "",
       contactMethod: "phone",
       message: "",
       agreePrivacy: true,
     },
   });
 
+  // Listen for custom select-facility events from loan cards
+  React.useEffect(() => {
+    const handleSelectFacility = (
+      e: CustomEvent<{ category?: string; serviceTitle?: string }>
+    ) => {
+      if (e.detail?.category) {
+        setValue("financeType", e.detail.category);
+      }
+      if (e.detail?.serviceTitle) {
+        setValue("serviceName", e.detail.serviceTitle);
+        setSelectedService(e.detail.serviceTitle);
+      }
+    };
+
+    window.addEventListener(
+      "select-facility",
+      handleSelectFacility as EventListener
+    );
+    return () => {
+      window.removeEventListener(
+        "select-facility",
+        handleSelectFacility as EventListener
+      );
+    };
+  }, [setValue]);
+
+  React.useEffect(() => {
+    if (initialCategory) setValue("financeType", initialCategory);
+    if (initialServiceName) {
+      setValue("serviceName", initialServiceName);
+      setSelectedService(initialServiceName);
+    }
+  }, [initialCategory, initialServiceName, setValue]);
+
   const selectedMethod = watch("contactMethod");
 
   const onSubmit = async (values: ConsultationFormValues) => {
-    void values;
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    try {
+      const supabase = createClient();
+      await supabase.from("consultations").insert([
+        {
+          full_name: values.fullName,
+          email: values.email,
+          phone: values.phone,
+          finance_type: values.financeType,
+          service_name: values.serviceName || selectedService || null,
+          contact_method: values.contactMethod,
+          message: values.message || null,
+          status: "new",
+        },
+      ]);
+    } catch (err) {
+      console.error("Consultation insert error:", err);
+    }
+
     setIsSubmitted(true);
     reset();
+    setSelectedService("");
   };
 
   return (
@@ -226,21 +313,31 @@ export function ConsultationSection() {
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="financeType" className="text-xs font-semibold text-[#172B4D]">
-                        Finance Type *
-                      </label>
+                      <div className="flex items-center justify-between">
+                        <label htmlFor="financeType" className="text-xs font-semibold text-[#172B4D]">
+                          Finance Category *
+                        </label>
+                        {selectedService && (
+                          <span className="text-[10px] font-semibold text-[var(--color-brand-blue)] bg-blue-50 px-2 py-0.5 rounded truncate max-w-[140px]" title={selectedService}>
+                            {selectedService}
+                          </span>
+                        )}
+                      </div>
                       <select
                         id="financeType"
                         defaultValue=""
                         {...register("financeType")}
-                        className="w-full h-11 px-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all cursor-pointer"
+                        disabled={loadingCategories && categories.length === 0}
+                        className="w-full h-11 px-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all cursor-pointer disabled:opacity-60"
                       >
                         <option value="" disabled hidden>
-                          Select finance category
+                          {loadingCategories
+                            ? "Loading categories..."
+                            : "Select finance category"}
                         </option>
-                        {financeOptions.map((opt) => (
-                          <option key={opt.value} value={opt.value}>
-                            {opt.label}
+                        {categories.map((cat) => (
+                          <option key={cat.id || cat.slug} value={cat.slug}>
+                            {cat.name}
                           </option>
                         ))}
                       </select>
@@ -251,6 +348,26 @@ export function ConsultationSection() {
                       )}
                     </div>
                   </div>
+
+                  {/* Selected Specific Facility Indicator */}
+                  {selectedService && (
+                    <div className="p-3 bg-blue-50/70 border border-blue-100 rounded-xl flex items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2 text-[#103B78]">
+                        <span className="font-bold">Inquiring for Facility:</span>
+                        <span className="font-semibold">{selectedService}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedService("");
+                          setValue("serviceName", "");
+                        }}
+                        className="text-[11px] text-slate-500 hover:text-red-500 underline"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  )}
 
                   {/* Preferred Contact Method */}
                   <div className="flex flex-col gap-2 pt-1">

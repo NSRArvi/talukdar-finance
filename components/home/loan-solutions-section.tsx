@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import {
@@ -19,25 +20,13 @@ import {
   Layers,
   ArrowRight,
   ShieldCheck,
+  Loader2,
+  FolderOpen,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import loanFacilitiesData from "@/data/loan-facilities.json";
+import type { ServiceItem, ServiceCategory } from "@/types";
 
-export type LoanCategory = "all" | "residential" | "commercial" | "asset" | "personal";
-
-export interface LoanFacilityRaw {
-  id: string;
-  category: "residential" | "commercial" | "asset" | "personal";
-  iconName: string;
-  title: string;
-  badge?: string;
-  description: string;
-  features: string[];
-  imageSrc: string;
-  actionText: string;
-}
-
-// Icon dictionary to map JSON string names to actual Lucide component icons
+// Icon dictionary to map string names to actual Lucide component icons
 const iconMap: Record<string, React.ElementType> = {
   Home,
   RefreshCw,
@@ -53,41 +42,95 @@ const iconMap: Record<string, React.ElementType> = {
   GraduationCap,
 };
 
-const categoryTabs: { id: LoanCategory; label: string }[] = [
-  { id: "all", label: "All Loan Facilities (12)" },
-  { id: "residential", label: "Home & Residential (6)" },
-  { id: "commercial", label: "Commercial & Business (3)" },
-  { id: "asset", label: "Car & Asset Finance (2)" },
-  { id: "personal", label: "Personal Loans (1)" },
-];
-
 export function LoanSolutionsSection() {
-  const [activeCategory, setActiveCategory] = React.useState<LoanCategory>("all");
+  const [services, setServices] = React.useState<ServiceItem[]>([]);
+  const [categories, setCategories] = React.useState<ServiceCategory[]>([]);
+  const [activeCategory, setActiveCategory] = React.useState<string>("all");
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [fetchError, setFetchError] = React.useState<string | null>(null);
 
+  // Fetch real-time live data from server API
+  React.useEffect(() => {
+    let isMounted = true;
+
+    async function loadLiveServices() {
+      try {
+        setIsLoading(true);
+        setFetchError(null);
+
+        const res = await fetch("/api/services", {
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}`);
+        }
+
+        const data = await res.json();
+        if (isMounted) {
+          setServices(data.services || []);
+          setCategories(data.categories || []);
+        }
+      } catch (err: unknown) {
+        if (isMounted) {
+          const msg =
+            err instanceof Error ? err.message : "Failed to load live facilities";
+          setFetchError(msg);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadLiveServices();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Filter facilities by active category
   const filteredFacilities = React.useMemo(() => {
-    const data = loanFacilitiesData as LoanFacilityRaw[];
-    if (activeCategory === "all") return data;
-    return data.filter((item) => item.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === "all") return services;
+    return services.filter((item) => item.category === activeCategory);
+  }, [services, activeCategory]);
 
-  const scrollToConsultation = (facilityTitle: string) => {
+  // Compute tabs dynamically from actual database categories
+  const categoryTabs = React.useMemo(() => {
+    const list = [
+      {
+        id: "all",
+        label: `All Loan Facilities (${services.length})`,
+      },
+    ];
+
+    categories.forEach((cat) => {
+      const count = services.filter((s) => s.category === cat.slug).length;
+      list.push({
+        id: cat.slug,
+        label: `${cat.name} (${count})`,
+      });
+    });
+
+    return list;
+  }, [categories, services]);
+
+  const scrollToConsultation = (facility: ServiceItem) => {
     const el = document.getElementById("consultation");
     el?.scrollIntoView({ behavior: "smooth" });
 
-    const selectElem = document.getElementById("financeType") as HTMLSelectElement | null;
-    if (selectElem) {
-      const lower = facilityTitle.toLowerCase();
-      if (lower.includes("car") || lower.includes("equipment")) {
-        selectElem.value = "car-loan";
-      } else if (lower.includes("commercial") || lower.includes("business")) {
-        selectElem.value = "business-finance";
-      } else if (lower.includes("personal")) {
-        selectElem.value = "personal-loan";
-      } else if (lower.includes("refinanc")) {
-        selectElem.value = "refinance";
-      } else {
-        selectElem.value = "home-loan";
-      }
+    // Dispatch event to consultation form with both category and facility title
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("select-facility", {
+          detail: {
+            category: facility.category,
+            serviceTitle: facility.title,
+          },
+        })
+      );
     }
   };
 
@@ -98,10 +141,11 @@ export function LoanSolutionsSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div className="flex flex-col items-start gap-3 max-w-3xl">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-brand-navy)]">
-              Comprehensive Finance Facilities Across Australia
+              Finance Sollutions
             </h2>
             <p className="text-base sm:text-lg text-[var(--color-brand-text-muted)] leading-relaxed">
-              Explore finance options custom-architected around your financial goals, property ambitions, and business growth milestones.
+              Explore finance options custom-architected around your financial
+              goals, property ambitions, and business growth milestones.
             </p>
           </div>
 
@@ -111,56 +155,101 @@ export function LoanSolutionsSection() {
           </div>
         </div>
 
-        {/* Filter Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none -mx-2 px-2">
-          {categoryTabs.map((tab) => {
-            const isActive = activeCategory === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveCategory(tab.id)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? "bg-[var(--color-brand-navy)] text-white shadow-sm"
-                    : "bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-text-muted)] hover:text-[var(--color-brand-navy)] hover:bg-slate-200/80"
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Interactive Loan Cards Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7"
-        >
-          <AnimatePresence>
-            {filteredFacilities.map((facility) => {
-              const Icon = iconMap[facility.iconName] || Home;
+        {/* Dynamic Category Filter Tabs */}
+        {!isLoading && categoryTabs.length > 1 && (
+          <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+            {categoryTabs.map((tab) => {
+              const isActive = activeCategory === tab.id;
               return (
-                <motion.div
-                  layout
-                  key={facility.id}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.3 }}
-                  whileHover={{ y: -4 }}
-                  onClick={() => scrollToConsultation(facility.title)}
-                  className="group cursor-pointer rounded-2xl border border-[var(--color-brand-border)] bg-white overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-[var(--color-brand-blue)]/50 transition-all duration-300"
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveCategory(tab.id)}
+                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-[var(--color-brand-navy)] text-white shadow-sm"
+                      : "bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-text-muted)] hover:text-[var(--color-brand-navy)] hover:bg-slate-200/80"
+                  }`}
                 >
-                  <div>
-                    {/* Facility Image with Overlay Header */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Live Loading State */}
+        {isLoading && (
+          <div className="py-20 flex flex-col items-center justify-center gap-4 text-center">
+            <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand-soft-blue)] flex items-center justify-center text-[var(--color-brand-blue)] shadow-xs">
+              <Loader2 className="w-6 h-6 animate-spin" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-[var(--color-brand-navy)]">
+                Fetching Loan Facilities...
+              </p>
+              <p className="text-xs text-[var(--color-brand-text-muted)] mt-0.5">
+                Connecting to server database to load live credit products.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Error State */}
+        {!isLoading && fetchError && (
+          <div className="p-6 rounded-2xl bg-red-50 border border-red-200 text-center my-8">
+            <p className="text-sm font-bold text-red-700">
+              Unable to load live loan facilities
+            </p>
+            <p className="text-xs text-red-600 mt-1">{fetchError}</p>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && !fetchError && filteredFacilities.length === 0 && (
+          <div className="py-16 flex flex-col items-center justify-center text-center gap-3 bg-[var(--color-brand-soft-blue)]/60 rounded-2xl border border-dashed border-slate-300">
+            <FolderOpen className="w-8 h-8 text-slate-400" />
+            <p className="text-sm font-semibold text-[var(--color-brand-navy)]">
+              No loan facilities found in this category.
+            </p>
+            <p className="text-xs text-slate-500">
+              Facilities will appear once published in the admin panel.
+            </p>
+          </div>
+        )}
+
+        {/* Live Loaded Facilities Cards Grid */}
+        {!isLoading && !fetchError && filteredFacilities.length > 0 && (
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7"
+          >
+            <AnimatePresence>
+              {filteredFacilities.map((facility) => {
+                const Icon = iconMap[facility.iconName] || Home;
+                return (
+                  <motion.div
+                    layout
+                    key={facility.id}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.3 }}
+                    whileHover={{ y: -4 }}
+                    className="group rounded-2xl border border-[var(--color-brand-border)] bg-white overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-[var(--color-brand-blue)]/50 transition-all duration-300"
+                  >
+                    {/* Facility Image with Overlay Header (Clickable link to /solutions/[slug]) */}
+                    <Link
+                      href={`/solutions/${facility.id}`}
+                      className="block relative aspect-[16/9] w-full overflow-hidden bg-slate-100 cursor-pointer"
+                    >
                       <Image
                         src={facility.imageSrc}
                         alt={facility.title}
                         fill
                         className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                        unoptimized
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-navy)]/80 via-transparent to-transparent pointer-events-none" />
 
@@ -175,13 +264,15 @@ export function LoanSolutionsSection() {
                           </span>
                         )}
                       </div>
-                    </div>
+                    </Link>
 
-                    {/* Card Content */}
+                    {/* Card Content (Headline links to /solutions/[slug]) */}
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-[var(--color-brand-navy)] group-hover:text-[var(--color-brand-blue)] transition-colors mb-2.5">
-                        {facility.title}
-                      </h3>
+                      <Link href={`/solutions/${facility.id}`}>
+                        <h3 className="text-xl font-bold text-[var(--color-brand-navy)] group-hover:text-[var(--color-brand-blue)] transition-colors mb-2.5">
+                          {facility.title}
+                        </h3>
+                      </Link>
                       <p className="text-sm text-[var(--color-brand-text-muted)] leading-relaxed mb-4">
                         {facility.description}
                       </p>
@@ -199,20 +290,33 @@ export function LoanSolutionsSection() {
                         ))}
                       </ul>
                     </div>
-                  </div>
 
-                  {/* Bottom Action Bar */}
-                  <div className="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[var(--color-brand-navy)] group-hover:text-[var(--color-brand-blue)] transition-colors">
-                    <span>{facility.actionText}</span>
-                    <div className="h-6 w-6 rounded-full bg-white flex items-center justify-center shadow-xs group-hover:bg-[var(--color-brand-blue)] group-hover:text-white transition-all">
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    {/* Bottom Action Bar: Two Clear Separate Buttons */}
+                    <div className="px-5 py-3.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between gap-3">
+                      {/* View Facility Details */}
+                      <Link
+                        href={`/solutions/${facility.id}`}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--color-brand-navy)] hover:text-[var(--color-brand-blue)] transition-colors group/link"
+                      >
+                        <span>{facility.actionText || "View Facility"}</span>
+                        <ArrowRight className="h-3.5 w-3.5 text-[var(--color-brand-blue)] transition-transform group-hover/link:translate-x-0.5" />
+                      </Link>
+
+                      {/* Direct Consult Button */}
+                      <button
+                        type="button"
+                        onClick={() => scrollToConsultation(facility)}
+                        className="px-3.5 py-1.5 rounded-lg bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue-hover)] text-white text-xs font-semibold shadow-xs hover:shadow-md transition-all cursor-pointer shrink-0"
+                      >
+                        Consult
+                      </button>
                     </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
         {/* Bottom Reassurance Banner */}
         <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-[var(--color-brand-soft-blue)] border border-[var(--color-brand-border)] flex flex-col md:flex-row items-center justify-between gap-6">
@@ -221,7 +325,8 @@ export function LoanSolutionsSection() {
               Have a unique or complex lending scenario?
             </h4>
             <p className="text-sm text-[var(--color-brand-text-muted)]">
-              We handle complex company trusts, self-employed tax returns, and non-standard collateral structures.
+              We handle complex company trusts, self-employed tax returns, and
+              non-standard collateral structures.
             </p>
           </div>
           <button
