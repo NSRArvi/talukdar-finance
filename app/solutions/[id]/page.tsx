@@ -135,7 +135,7 @@ export default async function ServiceDetailPage({
                       <ShieldCheck className="w-3.5 h-3.5 text-blue-300" /> License
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-white">
-                      MFAA Member
+                      FBAA Member
                     </span>
                   </div>
                 </div>

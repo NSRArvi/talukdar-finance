@@ -42,11 +42,11 @@ export function AboutBrokerSection() {
                 </div>
               </div>
 
-              {/* MFAA Accreditation Badge */}
+              {/* FBAA Accreditation Badge */}
               <div className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-[var(--color-brand-border)] shadow-sm">
                 <ShieldCheck className="h-5 w-5 text-[var(--color-brand-blue)] shrink-0" />
                 <span className="text-xs font-semibold text-[var(--color-brand-navy)]">
-                  MFAA Accredited Finance Broker
+                  FBAA Accredited Finance Broker
                 </span>
               </div>
             </div>
@@ -75,7 +75,7 @@ export function AboutBrokerSection() {
                     Qualifications
                   </div>
                   <div className="text-sm font-semibold text-[var(--color-brand-navy)]">
-                    MFAA Accredited | Dip. Financial Services | Cert IV FMB
+                    FBAA Accredited | Dip. Financial Services | Cert IV FMB
                   </div>
                 </div>
               </div>
@@ -90,7 +90,7 @@ export function AboutBrokerSection() {
                     Professional Association
                   </div>
                   <div className="text-sm font-semibold text-[var(--color-brand-navy)]">
-                    Member of Mortgage & Finance Association of Australia (MFAA)
+                    Member of Finance Brokers Association of Australia (FBAA)
                   </div>
                 </div>
               </div>

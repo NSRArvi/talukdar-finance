@@ -6,7 +6,7 @@ import { AboutBrokerSection, TestimonialsSection, ConsultationSection } from "@/
 export const metadata: Metadata = {
   title: "About Your Broker | Talukdar Finance",
   description:
-    "Meet your MFAA accredited mortgage and finance specialist. Real conversations, personal guidance, and high-integrity credit strategy.",
+    "Meet your FBAA accredited mortgage and finance specialist. Real conversations, personal guidance, and high-integrity credit strategy.",
 };
 
 export default function AboutPage() {

@@ -38,7 +38,7 @@ const navLinks = [
   {
     href: "/about",
     label: "About",
-    subtitle: "MFAA accredited finance specialist",
+    subtitle: "FBAA accredited finance specialist",
     tag: "04",
   },
   {
@@ -300,7 +300,7 @@ export function Header() {
                 {/* Regulatory Trust Badge */}
                 <div className="flex items-center justify-center gap-1.5 text-[10px] text-[var(--color-brand-text-muted)] pt-0.5 text-center">
                   <ShieldCheck className="h-3.5 w-3.5 text-[var(--color-brand-blue)] shrink-0" />
-                  <span>MFAA Accredited | Australian Credit Representative</span>
+                  <span>FBAA Accredited | Australian Credit Representative</span>
                 </div>
               </motion.div>
             </div>
