@@ -3,10 +3,8 @@
 import * as React from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Award, Building2, Quote, ShieldCheck } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
 
 export function AboutBrokerSection() {
   const scrollToConsultation = () => {
@@ -15,110 +13,85 @@ export function AboutBrokerSection() {
   };
 
   return (
-    <Section id="about" background="soft" spacing="lg">
+    <section id="about" className="py-20 lg:py-28 bg-[#FBFBFA] border-b border-slate-200">
       <Container size="default">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left: Professional Broker Profile Presentation */}
-          <div className="lg:col-span-5 flex flex-col items-center sm:items-start">
-            <div className="relative w-full max-w-sm">
-              {/* Photo Box */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-[var(--color-brand-border)] bg-slate-200">
-                <Image
-                  src="/about.png"
-                  alt="Talukdar Finance Principal Mortgage & Finance Specialist"
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 768px) 100vw, 400px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-navy)]/80 via-transparent to-transparent pointer-events-none" />
-
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <h3 className="text-xl font-bold leading-tight">
-                    [Broker Full Name]
-                  </h3>
-                  <p className="text-xs text-white/80 font-medium">
-                    Principal Mortgage & Finance Specialist
-                  </p>
-                </div>
-              </div>
-
-              {/* FBAA Accreditation Badge */}
-              <div className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-[var(--color-brand-border)] shadow-sm">
-                <ShieldCheck className="h-5 w-5 text-[var(--color-brand-blue)] shrink-0" />
-                <span className="text-xs font-semibold text-[var(--color-brand-navy)]">
-                  FBAA Accredited Finance Broker
-                </span>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left: Professional Broker Portrait with Rounded 3xl Frame */}
+          <div className="lg:col-span-5 relative aspect-[4/5] sm:min-h-[500px] rounded-[32px] sm:rounded-[40px] border border-slate-200/90 bg-slate-100 overflow-hidden shadow-xl">
+            <Image
+              src="/about.png"
+              alt="Talukdar Finance Principal Mortgage & Finance Specialist"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 500px"
+            />
+            <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 p-5 shadow-lg">
+              <h3 className="text-xl font-bold text-[var(--color-brand-navy)]">
+                Mantasha Alam Tonni
+              </h3>
+              <p className="text-xs font-semibold text-[var(--color-brand-blue)] mt-0.5 tracking-wider uppercase">
+                Director &amp; Mortgage Broker
+              </p>
             </div>
           </div>
 
           {/* Right: Personal Advisory Pitch & Credentials */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-6">
+          <div className="lg:col-span-7 flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              {/* LMG Style Pill Badge */}
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-800 tracking-wider mb-5">
+                About Talukdar Finance
+              </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] leading-tight">
-              Real Conversations. Personal Guidance.
-            </h2>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--color-brand-navy)] tracking-tight leading-[1.12] mb-6">
+                Direct Conversations. <br />
+                Tailored Guidance.
+              </h2>
 
-            <p className="text-base sm:text-lg text-[var(--color-brand-text-muted)] leading-relaxed">
-              At Talukdar Finance, we believe a good finance experience starts with understanding the person behind the plans. We take the time to understand your goals and help you navigate your options with greater clarity.
-            </p>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
+                At Talukdar Finance, we believe a great lending outcome begins with understanding your individual life goals. We eliminate bank red-tape, negotiate policy exceptions, and advocate strictly on your behalf.
+              </p>
 
-            {/* Structured Credentials Card */}
-            <div className="w-full rounded-2xl border border-[var(--color-brand-border)] bg-white p-6 sm:p-7 flex flex-col gap-5 shadow-sm">
-              {/* Qualifications */}
-              <div className="flex items-start gap-3.5">
-                <div className="h-9 w-9 rounded-lg bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0 mt-0.5">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold tracking-wider text-[var(--color-brand-text-muted)] uppercase mb-1">
-                    Qualifications
+              {/* Rounded Credentials Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="p-6 rounded-2xl border border-slate-200/90 bg-white shadow-xs">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Accreditation
                   </div>
-                  <div className="text-sm font-semibold text-[var(--color-brand-navy)]">
-                    FBAA Accredited | Dip. Financial Services | Cert IV FMB
+                  <div className="text-sm font-bold text-[var(--color-brand-navy)]">
+                    FBAA Member &amp; ASIC Regulated
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl border border-slate-200/90 bg-white shadow-xs">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Credentials
+                  </div>
+                  <div className="text-sm font-bold text-[var(--color-brand-navy)]">
+                    Cert IV FMB | AML/CTF | BID
                   </div>
                 </div>
               </div>
+            </motion.div>
 
-              {/* Professional Association */}
-              <div className="flex items-start gap-3.5 pt-4 border-t border-slate-100">
-                <div className="h-9 w-9 rounded-lg bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0 mt-0.5">
-                  <Building2 className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold tracking-wider text-[var(--color-brand-text-muted)] uppercase mb-1">
-                    Professional Association
-                  </div>
-                  <div className="text-sm font-semibold text-[var(--color-brand-navy)]">
-                    Member of Finance Brokers Association of Australia (FBAA)
-                  </div>
-                </div>
-              </div>
-
-              {/* Client Philosophy */}
-              <div className="flex items-start gap-3.5 pt-4 border-t border-slate-100">
-                <div className="h-9 w-9 rounded-lg bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0 mt-0.5">
-                  <Quote className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold tracking-wider text-[var(--color-brand-text-muted)] uppercase mb-1">
-                    Client Philosophy
-                  </div>
-                  <p className="text-sm text-[var(--color-brand-text)] italic leading-relaxed">
-                    &ldquo;Clear, transparent advice that puts borrower goals first, navigating complex credit pathways together.&rdquo;
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Button size="lg" onClick={scrollToConsultation}>
-                Let&apos;s Talk About Your Goals
-              </Button>
+            <div>
+              <button
+                type="button"
+                onClick={scrollToConsultation}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--color-brand-navy)] hover:bg-[var(--color-brand-blue)] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-md hover:shadow-xl group"
+              >
+                <span>Book Direct Consultation</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
             </div>
           </div>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

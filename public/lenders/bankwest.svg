@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+    <rect x="6" y="12" width="26" height="26" rx="6" fill="#FF6600" />
+    <text x="38" y="27" font-family="sans-serif" font-weight="800" font-size="13" fill="#FF6600">bankwest</text>
+    <text x="38" y="37" font-family="sans-serif" font-weight="600" font-size="8" fill="#64748B">MORE THAN BOTH</text>
+  </svg>

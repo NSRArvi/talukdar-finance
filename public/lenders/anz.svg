@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" width="220" height="70">
+    <text x="20" y="48" font-family="sans-serif" font-weight="900" font-size="34" fill="#007DBA" letter-spacing="1">ANZ</text>
+    <g transform="translate(110, 16)">
+      <circle cx="18" cy="10" r="6" fill="#007DBA" />
+      <path d="M8 32 C8 20, 28 20, 28 32" fill="#007DBA" />
+      <circle cx="32" cy="15" r="4.5" fill="#007DBA" />
+      <path d="M26 32 C26 23, 40 23, 40 32" fill="#007DBA" />
+      <circle cx="4" cy="15" r="4.5" fill="#007DBA" />
+      <path d="M-4 32 C-4 23, 10 23, 10 32" fill="#007DBA" />
+    </g>
+  </svg>

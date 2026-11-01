@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { Plus, Minus, Loader2, HelpCircle } from "lucide-react";
+import { Plus, Minus, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import type { FAQItem } from "@/types";
 
@@ -13,7 +12,6 @@ export function FAQSection() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
-  // Load live FAQs from server API
   React.useEffect(() => {
     let active = true;
 
@@ -21,14 +19,8 @@ export function FAQSection() {
       try {
         setIsLoading(true);
         setErrorMsg(null);
-        const res = await fetch("/api/faqs", {
-          cache: "no-store",
-        });
-
-        if (!res.ok) {
-          throw new Error(`Failed to load FAQs (${res.status})`);
-        }
-
+        const res = await fetch("/api/faqs", { cache: "no-store" });
+        if (!res.ok) throw new Error(`Failed to load FAQs (${res.status})`);
         const data = await res.json();
         if (active && Array.isArray(data.faqs)) {
           setFaqs(data.faqs);
@@ -44,7 +36,6 @@ export function FAQSection() {
     }
 
     loadFaqs();
-
     return () => {
       active = false;
     };
@@ -55,98 +46,102 @@ export function FAQSection() {
   };
 
   return (
-    <Section id="faqs" background="white" spacing="lg">
-      <Container size="narrow">
-        {/* Section Heading */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-14">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] mt-3 mb-2">
-            Questions Before You Get Started?
-          </h2>
-          <p className="text-base sm:text-lg text-[var(--color-brand-text-muted)]">
-            Understand how Talukdar Finance works with you.
-          </p>
-        </div>
-
-        {/* Loading State */}
-        {isLoading && (
-          <div className="py-16 flex flex-col items-center justify-center gap-3 text-center">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-soft-blue)] flex items-center justify-center text-[var(--color-brand-blue)]">
-              <Loader2 className="w-5 h-5 animate-spin" />
+    <section id="faqs" className="py-20 lg:py-28 bg-[#FBFBFA] border-b border-slate-200">
+      <Container size="default">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Heading & Context */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="lg:col-span-5 flex flex-col items-start"
+          >
+            {/* LMG Style Pill Badge */}
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-800 tracking-wider mb-5">
+              Frequently Asked Questions
             </div>
-            <p className="text-xs text-[var(--color-brand-text-muted)] font-medium">
-              Loading frequently asked questions...
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--color-brand-navy)] tracking-tight leading-[1.12] mb-6">
+              Clear Answers Before You Begin
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+              Everything you need to know about our broker advisory model, fees, lender panel accreditation, and application requirements.
             </p>
-          </div>
-        )}
+            <div className="p-6 rounded-3xl border border-slate-200/90 bg-white shadow-sm w-full">
+              <div className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)] mb-1">
+                Have a unique question?
+              </div>
+              <p className="text-xs text-slate-600 mb-4">
+                Reach out to our broker team directly for tailored scenario advice.
+              </p>
+              <a
+                href="#consultation"
+                className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-blue)] border-b border-[var(--color-brand-blue)] pb-0.5 inline-block"
+              >
+                Ask a Broker Directly →
+              </a>
+            </div>
+          </motion.div>
 
-        {/* Error State */}
-        {!isLoading && errorMsg && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-center text-xs text-red-700">
-            {errorMsg}
-          </div>
-        )}
+          {/* Right Column: Rounded Accordion Cards Container */}
+          <div className="lg:col-span-7 flex flex-col gap-3.5">
+            {isLoading && (
+              <div className="py-16 text-center rounded-3xl border border-slate-200 bg-white">
+                <Loader2 className="w-6 h-6 animate-spin text-[var(--color-brand-blue)] mx-auto mb-2" />
+                <p className="text-xs text-slate-500 font-medium">Loading FAQs...</p>
+              </div>
+            )}
 
-        {/* Empty State */}
-        {!isLoading && !errorMsg && faqs.length === 0 && (
-          <div className="py-12 flex flex-col items-center justify-center text-center gap-2 bg-[var(--color-brand-soft-blue)]/50 rounded-2xl border border-dashed border-slate-200">
-            <HelpCircle className="w-7 h-7 text-slate-400" />
-            <p className="text-xs font-semibold text-slate-600">
-              No FAQs published yet.
-            </p>
-          </div>
-        )}
+            {!isLoading && errorMsg && (
+              <div className="p-6 text-sm text-red-600 rounded-2xl bg-red-50 border border-red-200">
+                {errorMsg}
+              </div>
+            )}
 
-        {/* Live Accordion List */}
-        {!isLoading && !errorMsg && faqs.length > 0 && (
-          <div className="flex flex-col divide-y divide-[var(--color-brand-border)] border-y border-[var(--color-brand-border)]">
-            {faqs.map((faq, index) => {
-              const isOpen = openIndex === index;
-              return (
-                <div key={faq.id || faq.question} className="py-5">
-                  <button
-                    type="button"
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full flex items-center justify-between gap-4 text-left font-semibold text-base sm:text-lg text-[var(--color-brand-navy)] hover:text-[var(--color-brand-blue)] transition-colors cursor-pointer"
-                    aria-expanded={isOpen}
+            {!isLoading &&
+              faqs.map((faq, index) => {
+                const isOpen = openIndex === index;
+                return (
+                  <div
+                    key={faq.id}
+                    className="rounded-2xl border border-slate-200/90 bg-white overflow-hidden shadow-xs hover:border-slate-300 transition-colors"
                   >
-                    <span>{faq.question}</span>
-                    <div className="h-7 w-7 rounded-full bg-[var(--color-brand-soft-blue)] flex items-center justify-center shrink-0 text-[var(--color-brand-blue)]">
-                      {isOpen ? (
-                        <Minus className="h-4 w-4" />
-                      ) : (
-                        <Plus className="h-4 w-4" />
-                      )}
-                    </div>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => toggleFAQ(index)}
+                      className="w-full py-5 px-6 sm:px-7 text-left flex items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors cursor-pointer"
+                      aria-expanded={isOpen}
+                    >
+                      <span className="text-base sm:text-lg font-bold text-[var(--color-brand-navy)] tracking-tight">
+                        {faq.question}
+                      </span>
+                      <div className="shrink-0 w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-700 bg-white shadow-2xs">
+                        {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                      </div>
+                    </button>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{
-                          opacity: 1,
-                          height: "auto",
-                          transition: { duration: 0.25, ease: "easeInOut" },
-                        }}
-                        exit={{
-                          opacity: 0,
-                          height: 0,
-                          transition: { duration: 0.2, ease: "easeInOut" },
-                        }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-sm sm:text-base text-[var(--color-brand-text-muted)] leading-relaxed pt-3 pr-8 whitespace-pre-line">
-                          {faq.answer}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-6 sm:px-7 pb-6 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100 pt-4 bg-[#FBFBFA]/60">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
           </div>
-        )}
+        </div>
       </Container>
-    </Section>
+    </section>
   );
 }

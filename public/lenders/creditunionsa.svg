@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" width="220" height="70">
+    <text x="14" y="36" font-family="sans-serif" font-weight="800" font-size="18" fill="#222222" letter-spacing="-0.5">credit</text>
+    <text x="14" y="54" font-family="sans-serif" font-weight="800" font-size="18" fill="#222222" letter-spacing="-0.5">union</text>
+    <text x="68" y="54" font-family="sans-serif" font-weight="900" font-size="18" fill="#FF5500">sa</text>
+    <path d="M110 20 L135 20 L135 55 Z" fill="#FF5500" />
+    <path d="M110 20 L135 55 L110 55 Z" fill="#CC3300" opacity="0.8" />
+  </svg>

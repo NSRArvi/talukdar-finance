@@ -1,51 +1,33 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 
-const inter = localFont({
-  src: [
-    {
-      path: "../public/fonts/Inter-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/Inter-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/Inter-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/Inter-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-inter",
+// Official Brand Font: Manrope (from Talukder Finance Brand Identity.pdf)
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-manrope",
   display: "swap",
-  fallback: [
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "Segoe UI",
-    "Roboto",
-    "Helvetica Neue",
-    "Arial",
-    "sans-serif",
-  ],
 });
 
 export const metadata: Metadata = {
   title: "Talukdar Finance | Australian Finance Brokerage",
   description:
     "Tailored lending solutions for home loans, car loans, personal loans, business finance, and refinancing across Australia.",
+  icons: {
+    icon: [
+      {
+        url: "/Talukder Finance/Talukder-Finance-Favicon.png",
+        type: "image/png",
+      },
+    ],
+    shortcut: "/Talukder Finance/Talukder-Finance-Favicon.png",
+    apple: "/Talukder Finance/Talukder-Finance-Favicon.png",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#103B78",
+  themeColor: "#02376D",
   width: "device-width",
   initialScale: 1,
 };
@@ -56,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-AU" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en-AU" className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-[var(--color-brand-text)] font-sans">
         {children}
       </body>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" width="220" height="70">
+    <text x="16" y="46" font-family="sans-serif" font-weight="800" font-size="32" fill="#00205B" letter-spacing="1">AMP</text>
+    <g transform="translate(115, 12)">
+      <path d="M22 6 L22 38 M6 22 L38 22 M11 11 L33 33 M11 33 L33 11 M16 7 L28 37 M7 16 L37 28 M7 28 L37 16 M16 37 L28 7" stroke="#0096D6" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </g>
+  </svg>

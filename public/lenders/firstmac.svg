@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+    <rect x="6" y="13" width="24" height="24" rx="4" fill="#009FE3" />
+    <path d="M10 25 L16 17 L22 25 L18 32 L14 32 Z" fill="#ffffff" />
+    <text x="36" y="32" font-family="sans-serif" font-weight="800" font-size="16" fill="#003366" letter-spacing="0.2">first<tspan fill="#009FE3">mac</tspan></text>
+  </svg>

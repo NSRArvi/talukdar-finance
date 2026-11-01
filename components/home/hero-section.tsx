@@ -2,167 +2,69 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { Container } from "@/components/ui/container";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Home as HomeIcon,
-  Car,
-  Briefcase,
-  ChevronLeft,
-  ChevronRight,
-  CheckCircle2,
-  Shield,
-  Handshake,
-  ArrowRight,
-  Check,
-} from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-interface HeroSlide {
+interface CategoryPill {
   id: string;
-  tabLabel: string;
-  tabIcon: React.ElementType;
-  badgeText: string;
+  label: string;
+  thumb: string;
   titlePrefix: string;
   titleHighlight: string;
   description: string;
-  bulletText: string;
-  imageSrc: string;
-  imageAlt: string;
-  topBadge: {
-    icon: React.ElementType;
-    title: string;
-    subtitle: string;
-  };
-  bottomCard: {
-    tag: string;
-    subtag: string;
-    title: string;
-    progressWidth: string;
-  };
-  floatingPill: {
-    icon?: React.ElementType;
-    showPing?: boolean;
-    text: string;
-  };
+  image: string;
 }
 
-const heroSlides: HeroSlide[] = [
+const pathways: CategoryPill[] = [
   {
     id: "residential",
-    tabLabel: "Residential & Property",
-    tabIcon: HomeIcon,
-    badgeText: "FINANCE, MADE PERSONAL",
-    titlePrefix: "Your Next Chapter Starts With the ",
-    titleHighlight: "Right Finance.",
+    label: "Residential",
+    thumb: "/screen.png",
+    titlePrefix: "A better way to finance starts ",
+    titleHighlight: "here.",
     description:
-      "Whether you're buying your first home, upgrading your car, or planning your next big move, Talukdar Finance helps you explore your options with clear, personalised guidance.",
-    bulletText: "Personal guidance. Clear options. Support at every step.",
-    imageSrc: "/screen.png",
-    imageAlt: "Residential Property and Family Finance Consultation",
-    topBadge: {
-      icon: CheckCircle2,
-      title: "Your goals, your options",
-      subtitle: "Tailored borrowing structure",
-    },
-    bottomCard: {
-      tag: "FINANCE JOURNEY",
-      subtag: "Step 1 of 4",
-      title: "Stage 01: Strategy & Options",
-      progressWidth: "w-1/3",
-    },
-    floatingPill: {
-      showPing: true,
-      text: "Personalised guidance",
-    },
+      "From first home buyers to seasoned property investors, Talukdar Finance provides clear options, competitive bank comparisons, and dedicated guidance across 40+ accredited lenders.",
+    image: "/screen.png",
   },
   {
-    id: "vehicle",
-    tabLabel: "Car & Asset Finance",
-    tabIcon: Car,
-    badgeText: "TRANSPARENT VEHICLE FINANCE",
-    titlePrefix: "Drive Forward With ",
-    titleHighlight: "Confidence & Clarity.",
+    id: "commercial",
+    label: "Commercial",
+    thumb: "/screen 3.png",
+    titlePrefix: "Strategic funding for enterprise ",
+    titleHighlight: "growth.",
     description:
-      "From family upgrades to tailored business vehicle finance, we navigate dealer offers, competitive rates, and seamless settlement so you can take the wheel sooner.",
-    bulletText:
-      "Fast pre-approvals. Transparent dealer negotiation. Zero hidden costs.",
-    imageSrc: "/screen 2.png",
-    imageAlt: "Vehicle and Asset Finance Solutions",
-    topBadge: {
-      icon: Car,
-      title: "Vehicle Finance Structure",
-      subtitle: "Consumer & Chattel Mortgage",
-    },
-    bottomCard: {
-      tag: "FAST TURNAROUND",
-      subtag: "24-48 Hours",
-      title: "Streamlined Pre-Approval",
-      progressWidth: "w-4/5",
-    },
-    floatingPill: {
-      icon: Shield,
-      text: "No Dealer Markup Trap",
-    },
+      "Working capital, commercial property development, and structured equipment facilities designed to protect cash flow and scale your business.",
+    image: "/screen 3.png",
   },
   {
-    id: "business",
-    tabLabel: "Business & Commercial",
-    tabIcon: Briefcase,
-    badgeText: "STRATEGIC ADVISORY",
-    titlePrefix: "Empowering Australian ",
-    titleHighlight: "Enterprise & Growth.",
+    id: "asset",
+    label: "Asset Finance",
+    thumb: "/screen 2.png",
+    titlePrefix: "Drive forward with transparent ",
+    titleHighlight: "clarity.",
     description:
-      "Tailored cash flow solutions, commercial property funding, and capital expansion facilities structured to support your business ambitions and tax-effective goals.",
-    bulletText: "Commercial facilities. Equipment leasing. Custom terms.",
-    imageSrc: "/screen 3.png",
-    imageAlt: "Commercial and Business Finance Advisory",
-    topBadge: {
-      icon: Check,
-      title: "Working Capital & Equipment",
-      subtitle: "Scalable cash flow facilities",
-    },
-    bottomCard: {
-      tag: "ASSET STRUCTURE",
-      subtag: "Bespoke",
-      title: "Commercial Portfolio Strategy",
-      progressWidth: "w-full",
-    },
-    floatingPill: {
-      icon: Handshake,
-      text: "Direct Broker Relationship",
-    },
+      "Avoid dealership markups. Fast 24-48h pre-approvals for motor vehicles, yellow goods, and business machinery with flexible chattel mortgages.",
+    image: "/screen 2.png",
   },
 ];
 
 export function HeroSection() {
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-  const [direction, setDirection] = React.useState(1);
-  const [isPaused, setIsPaused] = React.useState(false);
+  const [currentIndex, setCurrentIndex] = React.useState<number>(0);
+  const [isPaused, setIsPaused] = React.useState<boolean>(false);
 
-  const nextSlide = React.useCallback(() => {
-    setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  }, []);
-
-  const prevSlide = React.useCallback(() => {
-    setDirection(-1);
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-  }, []);
-
-  const goToSlide = (index: number) => {
-    setDirection(index > currentSlide ? 1 : -1);
-    setCurrentSlide(index);
-  };
-
+  // Exact 4-second autoplay loop
   React.useEffect(() => {
     if (isPaused) return;
+
     const timer = setInterval(() => {
-      nextSlide();
-    }, 6500);
+      setCurrentIndex((prev) => (prev + 1) % pathways.length);
+    }, 4000);
+
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide]);
+  }, [isPaused]);
+
+  const activeData = pathways[currentIndex];
 
   const scrollToConsultation = () => {
     const el = document.getElementById("consultation");
@@ -174,283 +76,148 @@ export function HeroSection() {
     el?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const activeSlide = heroSlides[currentSlide];
-
   return (
-    <section
-      id="hero-slider-section"
-      className="relative w-full overflow-hidden bg-gradient-to-b from-white via-[var(--color-brand-soft-blue)]/50 to-white pt-4 pb-12 sm:pt-6 sm:pb-16 lg:pb-24"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      <Container size="default">
-        {/* Pathway Tabs & Slide Controls Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[var(--color-brand-border)] mb-6 sm:mb-8">
-          {/* Pathway Tabs with horizontal scroll on mobile */}
-          <div className="hidden md:flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none w-full sm:w-auto -mx-1 px-1">
-            {heroSlides.map((slide, idx) => {
-              const TabIcon = slide.tabIcon;
-              const isActive = currentSlide === idx;
-              return (
+    <section className="relative w-full bg-[#FBFBFA] pt-3 pb-8 sm:pb-12 px-3 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Outer Rounded Billboard Container with Fixed Constant Height */}
+      <div
+        className="relative w-full max-w-7xl mx-auto rounded-[32px] sm:rounded-[40px] bg-gradient-to-br from-[#0B1528] via-[#0F224A] to-[#1E3A8A] text-white overflow-hidden shadow-2xl h-[680px] sm:h-[720px] lg:h-[660px] flex flex-col justify-between"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Subtle Ambient Grain & Light Bloom */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-400/15 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 h-full items-stretch">
+          {/* Left Column: Fixed Layout with Constant Heights for zero layout shift */}
+          <div className="lg:col-span-7 p-8 sm:p-14 lg:p-16 flex flex-col justify-between z-10 h-full">
+            {/* Top Badge */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wider uppercase text-cyan-200 w-fit">
+                <span>Talukdar Finance • FBAA Accredited</span>
+              </div>
+            </div>
+
+            {/* Middle Section: Fixed Headline & Button Heights */}
+            <div className="py-2 flex flex-col justify-center">
+              {/* Headline Container with Fixed Min Height to guarantee identical height */}
+              <div className="h-[140px] sm:h-[180px] lg:h-[190px] flex items-center">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.h1
+                    key={`hero-title-${activeData.id}`}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] text-white"
+                  >
+                    {activeData.titlePrefix}
+                    <span className="text-[#38BDF8] inline-block">
+                      {activeData.titleHighlight}
+                    </span>
+                  </motion.h1>
+                </AnimatePresence>
+              </div>
+
+              {/* Action Buttons: Pill CTA + Text Link */}
+              <div className="flex flex-wrap items-center gap-6 mt-12 sm:mt-16">
                 <button
-                  key={slide.id}
                   type="button"
-                  onClick={() => goToSlide(idx)}
-                  className={`relative inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors duration-300 cursor-pointer shrink-0 ${
-                    isActive
-                      ? "text-white"
-                      : "text-[var(--color-brand-text-muted)] hover:text-[var(--color-brand-navy)] bg-[var(--color-brand-soft-blue)]"
-                  }`}
+                  onClick={scrollToConsultation}
+                  className="inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#38BDF8] hover:bg-[#7DD3FC] text-[#0B1528] text-sm sm:text-base font-bold transition-all duration-200 cursor-pointer shadow-lg hover:shadow-cyan-500/25 group"
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeTabBadge"
-                      className="absolute inset-0 rounded-full bg-[var(--color-brand-navy)] shadow-sm"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <TabIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 relative z-10" />
-                  <span className="relative z-10">{slide.tabLabel}</span>
+                  <span>Get started</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
-              );
-            })}
-          </div>
 
-          {/* Slide Navigation Arrows & Numeric Counter */}
-          <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-            <div className="flex items-center gap-1.5 text-xs font-mono font-medium text-[var(--color-brand-text-muted)]">
-              <span className="text-[var(--color-brand-blue)] font-bold text-sm">
-                0{currentSlide + 1}
-              </span>
-              <span>/</span>
-              <span>0{heroSlides.length}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                aria-label="Previous Slide"
-                onClick={prevSlide}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--color-brand-border)] bg-white hover:bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-navy)] flex items-center justify-center transition-all shadow-sm active:scale-95 cursor-pointer"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button
-                type="button"
-                aria-label="Next Slide"
-                onClick={nextSlide}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--color-brand-border)] bg-white hover:bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-navy)] flex items-center justify-center transition-all shadow-sm active:scale-95 cursor-pointer"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Stable 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 items-center">
-          {/* Left Column: Typography & CTAs */}
-          <div className="lg:col-span-6 flex flex-col items-start gap-4 sm:gap-6 z-10">
-
-            <div className="min-h-0 sm:h-[120px] lg:h-[140px] flex items-center">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.h1
-                  key={`title-${activeSlide.id}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--color-brand-navy)] leading-[1.12]"
+                <button
+                  type="button"
+                  onClick={scrollToSolutions}
+                  className="text-sm sm:text-base font-semibold text-white/90 hover:text-white underline underline-offset-8 decoration-white/40 hover:decoration-white transition-colors cursor-pointer"
                 >
-                  {activeSlide.titlePrefix}
-                  <span className="text-[var(--color-brand-blue)]">
-                    {activeSlide.titleHighlight}
-                  </span>
-                </motion.h1>
-              </AnimatePresence>
+                  Book a consultation
+                </button>
+              </div>
             </div>
 
-            <div className="min-h-0 sm:min-h-[60px] lg:min-h-[70px] flex items-center">
+            {/* Bottom Descriptive Caption Container with Fixed Height */}
+            <div className="pt-4 border-t border-white/10 max-w-lg h-[80px] sm:h-[75px] flex items-center">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.p
-                  key={`desc-${activeSlide.id}`}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
-                  className="text-base sm:text-lg text-[var(--color-brand-text-muted)] max-w-xl leading-relaxed"
-                >
-                  {activeSlide.description}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1 w-full sm:w-auto">
-              <Button
-                size="lg"
-                onClick={scrollToConsultation}
-                className="w-full sm:w-auto"
-              >
-                Book a Consultation
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={scrollToSolutions}
-                className="w-full sm:w-auto"
-                rightIcon={<ArrowRight className="h-4 w-4" />}
-              >
-                Explore Loan Options
-              </Button>
-            </div>
-
-            {/* Bullet */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-[var(--color-brand-text-muted)] font-medium pt-2 border-t border-[var(--color-brand-border)] w-full">
-              <CheckCircle2 className="h-4 w-4 text-[var(--color-brand-blue)] shrink-0" />
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={`bullet-${activeSlide.id}`}
+                  key={`hero-desc-${activeData.id}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
+                  className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3 sm:line-clamp-2"
                 >
-                  {activeSlide.bulletText}
-                </motion.span>
+                  {activeData.description}
+                </motion.p>
               </AnimatePresence>
             </div>
           </div>
 
-          {/* Right Column: Visual Stage */}
-          <div className="lg:col-span-6 relative flex justify-center mt-4 sm:mt-6 lg:mt-0 pb-6 sm:pb-0">
-            <div className="relative w-full max-w-lg lg:max-w-none">
-              {/* Decorative background glow */}
-              <div className="absolute -top-6 -right-6 w-64 sm:w-80 h-64 sm:h-80 bg-[var(--color-brand-blue)]/10 rounded-full blur-3xl pointer-events-none" />
-
-              {/* Fixed-Dimension Image Stage */}
-              <div className="relative rounded-[20px] sm:rounded-[22px] overflow-hidden shadow-xl sm:shadow-2xl border border-[var(--color-brand-border)] aspect-[4/3] sm:aspect-[16/11] bg-slate-900">
-                {heroSlides.map((slide, idx) => {
-                  const isCurrent = currentSlide === idx;
-                  return (
-                    <motion.div
-                      key={slide.id}
-                      initial={false}
-                      animate={{
-                        opacity: isCurrent ? 1 : 0,
-                        scale: isCurrent ? 1 : 1.05,
-                        x: isCurrent ? 0 : direction * 15,
-                        zIndex: isCurrent ? 2 : 1,
-                      }}
-                      transition={{
-                        duration: 0.65,
-                        ease: [0.25, 1, 0.5, 1],
-                      }}
-                      className="absolute inset-0 w-full h-full"
-                      style={{
-                        pointerEvents: isCurrent ? "auto" : "none",
-                      }}
-                    >
-                      <Image
-                        src={slide.imageSrc}
-                        alt={slide.imageAlt}
-                        fill
-                        priority={idx === 0}
-                        className="object-cover object-center"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 560px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-navy)]/40 via-transparent to-transparent pointer-events-none" />
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* Top Badge Card */}
+          {/* Right Column: Organic Cutout Photo Window (Identical Fixed Height on All Slides) */}
+          <div className="lg:col-span-5 relative flex items-center justify-end p-4 sm:p-6 lg:p-0 h-full">
+            <div className="relative w-full h-[320px] sm:h-[380px] lg:h-full overflow-hidden lg:rounded-l-[180px] rounded-[24px] lg:rounded-r-none border-4 sm:border-8 border-white/10 lg:border-r-0 bg-slate-900 shadow-2xl">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
-                  key={`top-badge-${activeSlide.id}`}
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute -top-3 sm:-top-4 -right-1 sm:right-4 z-20 bg-white/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 shadow-lg sm:shadow-xl border border-[var(--color-brand-border)] flex items-center gap-2.5 sm:gap-3 max-w-[210px] sm:max-w-[260px]"
-                >
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[var(--color-brand-soft-blue)] flex items-center justify-center shrink-0 text-[var(--color-brand-blue)]">
-                    <activeSlide.topBadge.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <span className="text-[11px] sm:text-xs font-semibold text-[var(--color-brand-navy)] truncate">
-                      {activeSlide.topBadge.title}
-                    </span>
-                    <span className="text-[10px] sm:text-[11px] text-[var(--color-brand-text-muted)] truncate">
-                      {activeSlide.topBadge.subtitle}
-                    </span>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Bottom Journey Progress Card */}
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={`bottom-card-${activeSlide.id}`}
-                  initial={{ opacity: 0, y: 14, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute -bottom-4 sm:-bottom-6 -left-1 sm:left-4 z-20 bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-lg sm:shadow-xl border border-[var(--color-brand-border)] max-w-[230px] sm:max-w-[280px] w-full"
-                >
-                  <div className="flex items-center justify-between mb-1 text-[10px] sm:text-[11px] font-semibold">
-                    <span className="text-[var(--color-brand-blue)] uppercase tracking-wider">
-                      {activeSlide.bottomCard.tag}
-                    </span>
-                    <span className="text-[var(--color-brand-text-muted)]">
-                      {activeSlide.bottomCard.subtag}
-                    </span>
-                  </div>
-                  <div className="text-[11px] sm:text-xs font-bold text-[var(--color-brand-navy)] mb-1.5 sm:mb-2 truncate">
-                    {activeSlide.bottomCard.title}
-                  </div>
-                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                      className={`h-full bg-[var(--color-brand-blue)] rounded-full ${activeSlide.bottomCard.progressWidth}`}
-                    />
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Floating Pill - Bottom Right */}
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={`floating-pill-${activeSlide.id}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  key={`hero-img-${activeData.id}`}
+                  initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.35 }}
-                  className="hidden md:flex absolute bottom-8 -right-4 z-20 bg-white/95 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-[var(--color-brand-border)] items-center gap-2"
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="absolute inset-0 w-full h-full"
                 >
-                  {activeSlide.floatingPill.showPing ? (
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-blue)] opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--color-brand-blue)]" />
-                    </span>
-                  ) : (
-                    activeSlide.floatingPill.icon && (
-                      <activeSlide.floatingPill.icon className="h-4 w-4 text-[var(--color-brand-blue)]" />
-                    )
-                  )}
-                  <span className="text-xs font-semibold text-[var(--color-brand-navy)]">
-                    {activeSlide.floatingPill.text}
-                  </span>
+                  <Image
+                    src={activeData.image}
+                    alt={activeData.label}
+                    fill
+                    priority
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 550px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
         </div>
-        
-      </Container>
+
+        {/* Bottom Floating Category Switcher Pills */}
+        <div className="relative lg:absolute lg:bottom-6 lg:right-8 z-30 p-4 lg:p-0 flex flex-wrap items-center justify-center lg:justify-end gap-2.5 sm:gap-3 bg-[#0B1528]/60 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border-t lg:border-t-0 border-white/10">
+          {pathways.map((pathway, idx) => {
+            const isActive = currentIndex === idx;
+            return (
+              <button
+                key={pathway.id}
+                type="button"
+                onClick={() => setCurrentIndex(idx)}
+                className={`inline-flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer shadow-md ${
+                  isActive
+                    ? "bg-white text-[#0B1528] scale-105 shadow-xl font-bold ring-2 ring-[#38BDF8]"
+                    : "bg-white/90 hover:bg-white text-slate-800 hover:text-black"
+                }`}
+              >
+                <div className="relative w-6 h-6 rounded-full overflow-hidden border border-slate-200 shrink-0">
+                  <Image
+                    src={pathway.thumb}
+                    alt={pathway.label}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <span>{pathway.label}</span>
+                <ArrowRight
+                  className={`w-3.5 h-3.5 transition-transform ${
+                    isActive ? "text-[#0B1528] translate-x-0.5" : "text-slate-400"
+                  }`}
+                />
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
-

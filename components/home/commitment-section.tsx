@@ -1,36 +1,70 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { Button } from "@/components/ui/button";
-import { User, FileText, LifeBuoy, ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
+import { User, FileText, LifeBuoy, ArrowRight, CheckCircle2 } from "lucide-react";
 
 interface CommitmentPillar {
-  icon: React.ElementType;
+  tag: string;
+  number: string;
   title: string;
+  subtitle: string;
   description: string;
+  highlights: string[];
+  image: string;
+  accentBg: string;
+  badgeColor: string;
 }
 
 const pillars: CommitmentPillar[] = [
   {
-    icon: User,
+    tag: "DISCOVERY & PERSONALISED ADVISORY",
+    number: "01",
     title: "Guidance That Starts With You",
+    subtitle: "Your borrowing strategy built around your individual ambitions.",
     description:
-      "Understand the client's goals and circumstances before exploring suitable options. No one-size-fits-all assumptions.",
+      "We take the time to understand your circumstances, income structure, and long-term goals before comparing lender credit policies. No cookie-cutter assumptions, no algorithmic bias.",
+    highlights: [
+      "Deep analysis of your borrowing capacity",
+      "Tailored loan structuring across 40+ banks",
+      "Comprehensive tax & entity review (PAYG & Self-Employed)",
+    ],
+    image: "/screen.png",
+    accentBg: "bg-white",
+    badgeColor: "bg-blue-50 text-[var(--color-brand-blue)] border-blue-200",
   },
   {
-    icon: FileText,
+    tag: "PLAIN-ENGLISH ADVISORY",
+    number: "02",
     title: "Clear, Informed Decisions",
+    subtitle: "Translating complex bank jargon into actionable clarity.",
     description:
-      "Explain the process and available options in straightforward language, eliminating bank jargon so you can proceed with confidence.",
+      "Lending policies, comparison rates, offset accounts, and redraw terms can be confusing. We present clear side-by-side lender breakdowns so you can choose your facility with total confidence.",
+    highlights: [
+      "Side-by-side interest rate & fee comparisons",
+      "Transparent breakdown of lender turnaround times",
+      "Zero hidden commissions or lender lock-ins",
+    ],
+    image: "/screen 2.png",
+    accentBg: "bg-[#FBFBFA]",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   {
-    icon: LifeBuoy,
-    title: "Support Through the Journey",
+    tag: "END-TO-END EXECUTION",
+    number: "03",
+    title: "Support Through Every Milestone",
+    subtitle: "Active guidance from pre-approval through to settlement and beyond.",
     description:
-      "Help clients understand the application process and the steps that follow, staying responsive and proactive at each milestone.",
+      "We manage the back-and-forth communication directly with bank credit assessors, real estate agents, and legal conveyancers. When market interest rates fluctuate, we review your terms continuously.",
+    highlights: [
+      "Direct negotiation with bank credit assessors",
+      "Seamless liaison with your legal conveyancer",
+      "Proactive post-settlement annual rate reviews",
+    ],
+    image: "/screen 3.png",
+    accentBg: "bg-white",
+    badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
   },
 ];
 
@@ -40,61 +74,118 @@ export function CommitmentSection() {
     el?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToConsultation = () => {
+    const el = document.getElementById("consultation");
+    el?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <Section id="commitment" background="soft" spacing="lg">
+    <section id="commitment" className="py-20 lg:py-28 bg-[#FBFBFA] border-b border-slate-200">
       <Container size="default">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Heading and Context */}
-          <div className="lg:col-span-5 flex flex-col items-start gap-5">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-brand-navy)] leading-tight">
+          {/* Left Column: Sticky Section Header on Desktop */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 flex flex-col items-start">
+            {/* LMG Style Pill Badge */}
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-800 tracking-wider mb-5">
+              Our Advisory Approach
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl lg:text-[50px] font-extrabold text-[var(--color-brand-navy)] tracking-tight leading-[1.12] mb-6">
               A More Personal Approach to Finance
             </h2>
-            <p className="text-base sm:text-lg text-[var(--color-brand-text-muted)] leading-relaxed">
-              Finance decisions can feel complicated. Talukdar Finance aims to make the journey easier to understand by listening to your needs, explaining your options, and helping you navigate the next steps.
+
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
+              Finance decisions can feel overwhelming. Talukdar Finance makes the journey straightforward by listening to your needs, presenting clear options, and steering your application smoothly to approval.
             </p>
-            <div className="pt-2">
-              <Button
-                variant="outline"
-                size="md"
-                onClick={scrollToAbout}
-                rightIcon={<ArrowRight className="h-4 w-4" />}
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={scrollToConsultation}
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[var(--color-brand-navy)] hover:bg-[var(--color-brand-blue)] text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-md"
               >
-                Get to Know Us
-              </Button>
+                <span>Book Free Discovery Call</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={scrollToAbout}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <span>Get to Know Us</span>
+              </button>
             </div>
           </div>
 
-          {/* Right Column: 3 Pillars Cards */}
-          <div className="lg:col-span-7 flex flex-col gap-4">
+          {/* Right Column: Card Stacking Track (Each card sticks and stacks as user scrolls) */}
+          <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-12 pb-12">
             {pillars.map((pillar, idx) => {
-              const Icon = pillar.icon;
+              // Progressive sticky top offset creates the true card-stacking depth effect
+              const topOffset = 110 + idx * 28;
+
               return (
-                <motion.div
+                <div
                   key={pillar.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.12 }}
-                  className="rounded-2xl border border-[var(--color-brand-border)] bg-white p-6 sm:p-7 flex gap-5 items-start shadow-sm hover:shadow-md transition-shadow"
+                  style={{ top: `${topOffset}px` }}
+                  className={`lg:sticky rounded-[32px] sm:rounded-[36px] border border-slate-200/90 ${pillar.accentBg} p-8 sm:p-10 shadow-[0_10px_35px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-2xl overflow-hidden flex flex-col justify-between`}
                 >
-                  <div className="h-12 w-12 rounded-xl bg-[var(--color-brand-blue-subtle)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0">
-                    <Icon className="h-6 w-6" />
+                  {/* Top Stage Bar */}
+                  <div className="flex items-center justify-between pb-6 border-b border-slate-200/80 mb-6">
+                    <span
+                      className={`text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border ${pillar.badgeColor}`}
+                    >
+                      {pillar.tag}
+                    </span>
+                    <span className="text-3xl sm:text-4xl font-serif italic font-black text-slate-300">
+                      {pillar.number}
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-[var(--color-brand-navy)] mb-1.5">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-sm text-[var(--color-brand-text-muted)] leading-relaxed">
-                      {pillar.description}
-                    </p>
+
+                  {/* Card Content & Photography Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+                    <div className="sm:col-span-7 flex flex-col">
+                      <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-brand-navy)] tracking-tight mb-2">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm font-semibold text-[var(--color-brand-blue)] mb-4">
+                        {pillar.subtitle}
+                      </p>
+                      <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                        {pillar.description}
+                      </p>
+
+                      {/* Bullet Highlights */}
+                      <ul className="flex flex-col gap-2.5">
+                        {pillar.highlights.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-2.5 text-xs font-medium text-slate-700"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Architectural Image View */}
+                    <div className="sm:col-span-5 relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-100 shadow-xs">
+                      <Image
+                        src={pillar.image}
+                        alt={pillar.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 300px"
+                      />
+                    </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }
-

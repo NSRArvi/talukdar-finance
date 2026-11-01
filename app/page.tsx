@@ -2,6 +2,9 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import {
   HeroSection,
+  LenderPanelMarquee,
+  GlanceSection,
+  StandBySection,
   LoanSolutionsSection,
   CommitmentSection,
   ProcessJourneySection,
@@ -17,6 +20,9 @@ export default function Home() {
       <Header />
       <main className="flex-1 flex flex-col">
         <HeroSection />
+        <LenderPanelMarquee />
+        <GlanceSection />
+        <StandBySection />
         <LoanSolutionsSection />
         <CommitmentSection />
         <ProcessJourneySection />

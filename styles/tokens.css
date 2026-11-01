@@ -1,26 +1,26 @@
 /**
- * Talukdar Finance — Design System Tokens
- * Brand Colours:
- * - Deep Navy: #103B78
- * - Primary Blue: #246BFD
+ * Talukdar Finance — Official Design System Tokens
+ * Brand Identity Guideline Alignment:
+ * - Primary Brand Navy: #02376D
+ * - Electric Blue: #166FFD
  * - Cloud White: #FFFFFF
- * - Soft Blue Background: #F3F7FC
- * - Main Text: #172B4D
+ * - Soft Light Background: #FBFBFA / #F3F7FC
+ * - Main Text: #0B192C
  * - Secondary Text: #64748B
  * - Border: #E2E8F0
  */
 
 :root {
-  /* Brand Colours */
-  --color-brand-navy: #103B78;
-  --color-brand-navy-dark: #0A254D;
-  --color-brand-navy-light: #184D98;
-  --color-brand-blue: #246BFD;
-  --color-brand-blue-hover: #1A54D4;
-  --color-brand-blue-subtle: #EBF1FF;
+  /* Official Brand Identity Colours */
+  --color-brand-navy: #02376D;
+  --color-brand-navy-dark: #01244A;
+  --color-brand-navy-light: #0D498A;
+  --color-brand-blue: #166FFD;
+  --color-brand-blue-hover: #0D5CE5;
+  --color-brand-blue-subtle: #E8F1FF;
   --color-brand-white: #FFFFFF;
   --color-brand-soft-blue: #F3F7FC;
-  --color-brand-text: #172B4D;
+  --color-brand-text: #0B192C;
   --color-brand-text-muted: #64748B;
   --color-brand-border: #E2E8F0;
   --color-brand-border-subtle: #EEF2F6;
@@ -64,10 +64,10 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(16, 59, 120, 0.05);
-  --shadow-card: 0 4px 20px -2px rgba(16, 59, 120, 0.08), 0 2px 6px -1px rgba(16, 59, 120, 0.04);
-  --shadow-card-hover: 0 12px 30px -4px rgba(16, 59, 120, 0.12), 0 4px 10px -2px rgba(16, 59, 120, 0.06);
-  --shadow-dropdown: 0 10px 25px -5px rgba(16, 59, 120, 0.1), 0 8px 10px -6px rgba(16, 59, 120, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(2, 55, 109, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(2, 55, 109, 0.08), 0 2px 6px -1px rgba(2, 55, 109, 0.04);
+  --shadow-card-hover: 0 12px 30px -4px rgba(2, 55, 109, 0.12), 0 4px 10px -2px rgba(2, 55, 109, 0.06);
+  --shadow-dropdown: 0 10px 25px -5px rgba(2, 55, 109, 0.1), 0 8px 10px -6px rgba(2, 55, 109, 0.05);
 
   /* Animation Durations & Easings */
   --duration-fast: 150ms;
@@ -87,4 +87,3 @@
   --z-modal: 600;
   --z-toast: 1000;
 }
-

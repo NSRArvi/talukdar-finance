@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { Phone, Mail, CheckCircle2, Send } from "lucide-react";
+import { Send, CheckCircle2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -41,15 +40,12 @@ export function ConsultationSection({
     initialServiceName || ""
   );
 
-  // Fetch dynamic categories directly from server
   React.useEffect(() => {
     let active = true;
 
     async function loadCategories() {
       try {
-        const res = await fetch("/api/categories", {
-          cache: "no-store",
-        });
+        const res = await fetch("/api/categories", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           if (active && Array.isArray(data.categories)) {
@@ -64,7 +60,6 @@ export function ConsultationSection({
     }
 
     loadCategories();
-
     return () => {
       active = false;
     };
@@ -91,363 +86,239 @@ export function ConsultationSection({
     },
   });
 
-  // Listen for custom select-facility events from loan cards
+  const selectedCategory = watch("financeType");
+
   React.useEffect(() => {
-    const handleSelectFacility = (
-      e: CustomEvent<{ category?: string; serviceTitle?: string }>
-    ) => {
-      if (e.detail?.category) {
-        setValue("financeType", e.detail.category);
-      }
-      if (e.detail?.serviceTitle) {
-        setValue("serviceName", e.detail.serviceTitle);
-        setSelectedService(e.detail.serviceTitle);
+    const handlePrefill = (e: Event) => {
+      const customEvent = e as CustomEvent<{
+        category: string;
+        serviceName: string;
+      }>;
+      if (customEvent.detail) {
+        setValue("financeType", customEvent.detail.category);
+        setValue("serviceName", customEvent.detail.serviceName);
+        setSelectedService(customEvent.detail.serviceName);
       }
     };
 
-    window.addEventListener(
-      "select-facility",
-      handleSelectFacility as EventListener
-    );
-    return () => {
-      window.removeEventListener(
-        "select-facility",
-        handleSelectFacility as EventListener
-      );
-    };
+    window.addEventListener("prefill-consultation", handlePrefill);
+    return () =>
+      window.removeEventListener("prefill-consultation", handlePrefill);
   }, [setValue]);
 
-  React.useEffect(() => {
-    if (initialCategory) setValue("financeType", initialCategory);
-    if (initialServiceName) {
-      setValue("serviceName", initialServiceName);
-      setSelectedService(initialServiceName);
-    }
-  }, [initialCategory, initialServiceName, setValue]);
-
-  const selectedMethod = watch("contactMethod");
-
-  const onSubmit = async (values: ConsultationFormValues) => {
+  const onSubmit = async (data: ConsultationFormValues) => {
     try {
       const supabase = createClient();
-      await supabase.from("consultations").insert([
+      const { error } = await supabase.from("consultations").insert([
         {
-          full_name: values.fullName,
-          email: values.email,
-          phone: values.phone,
-          finance_type: values.financeType,
-          service_name: values.serviceName || selectedService || null,
-          contact_method: values.contactMethod,
-          message: values.message || null,
-          status: "new",
+          full_name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          finance_type: data.financeType,
+          service_name: data.serviceName || null,
+          contact_method: data.contactMethod,
+          message: data.message || null,
+          status: "pending",
         },
       ]);
-    } catch (err) {
-      console.error("Consultation insert error:", err);
-    }
 
-    setIsSubmitted(true);
-    reset();
-    setSelectedService("");
+      if (error) throw error;
+      setIsSubmitted(true);
+      reset();
+    } catch (err) {
+      console.error("Submission failed:", err);
+      setIsSubmitted(true);
+      reset();
+    }
   };
 
   return (
-    <Section id="consultation" background="navy" spacing="none" className="py-20 lg:py-28">
+    <section id="consultation" className="py-20 lg:py-28 bg-white">
       <Container size="default">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left Column: Dark Blue Editorial */}
-          <div className="lg:col-span-5 flex flex-col items-start gap-6">
-            <span className="text-[11px] font-bold tracking-widest uppercase text-blue-200">
-              START A CONVERSATION
-            </span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[32px] sm:rounded-[40px] border border-slate-200/90 overflow-hidden shadow-xl bg-white">
+          {/* Left Column: Direct Broker Pitch */}
+          <div className="lg:col-span-5 p-8 sm:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-slate-200 bg-[#FBFBFA] flex flex-col justify-between">
+            <div>
+              {/* LMG Style Pill Badge */}
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-800 tracking-wider mb-5">
+                Start Your Scenario
+              </div>
 
-            <h2
-              style={{ color: "#ffffff" }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight !text-white leading-[1.15]"
-            >
-              Let&apos;s Find a Way Forward.
-            </h2>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--color-brand-navy)] tracking-tight leading-[1.12] mb-6">
+                Book a Free Discovery Call
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
+                Speak directly with an accredited finance broker. We assess your borrowing capacity, compare viable lenders, and provide strategic clarity with no obligation.
+              </p>
 
-            <p className="text-base text-blue-100/90 leading-relaxed max-w-md">
-              Tell us what you&apos;re planning, and start a conversation about your finance options. We&apos;ll be in touch promptly to discuss next steps.
-            </p>
-
-            {/* Direct Contact Blocks */}
-            <div className="flex flex-col gap-5 pt-2">
-              <a
-                href="tel:+61280000000"
-                className="flex items-start gap-3.5 group text-left"
-              >
-                <div className="h-9 w-9 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 group-hover:bg-white group-hover:text-[#103B78] transition-colors shrink-0">
-                  <Phone className="h-4 w-4" />
+              <div className="flex flex-col gap-3.5 text-xs font-semibold text-slate-700 pt-6 border-t border-slate-200">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span>No Out-of-Pocket Broker Fee on Residential</span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-blue-200 font-medium">Call Directly</span>
-                  <span className="text-base font-bold text-white tracking-tight">
-                    +61 (02) 8000 0000
-                  </span>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span>Confidential, Direct Advisory</span>
                 </div>
-              </a>
-
-              <a
-                href="mailto:advisory@talukdarfinance.com.au"
-                className="flex items-start gap-3.5 group text-left"
-              >
-                <div className="h-9 w-9 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 group-hover:bg-white group-hover:text-[#103B78] transition-colors shrink-0">
-                  <Mail className="h-4 w-4" />
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span>FBAA Accredited Lending Broker</span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-blue-200 font-medium">Email Advisory</span>
-                  <span className="text-base font-bold text-white tracking-tight break-all">
-                    advisory@talukdarfinance.com.au
-                  </span>
-                </div>
-              </a>
+              </div>
             </div>
 
-            {/* Micro Checklist */}
-            <div className="flex flex-col gap-2.5 pt-4 text-xs sm:text-sm text-blue-100/85">
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="h-4 w-4 text-blue-300 shrink-0" />
-                <span>No obligation consultation</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="h-4 w-4 text-blue-300 shrink-0" />
-                <span>Discreet and confidential handling of all information</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="h-4 w-4 text-blue-300 shrink-0" />
-                <span>Fully licensed Australian Credit Representative</span>
-              </div>
+            <div className="pt-10 mt-10 border-t border-slate-200 text-xs text-slate-500">
+              Talukdar Finance operates strictly under National Consumer Credit Protection and the Best Interests Duty (BID).
             </div>
           </div>
 
-          {/* Right Column: Clean White Form Card */}
-          <div className="lg:col-span-7">
-            <div className="rounded-3xl bg-white text-[#172B4D] p-8 sm:p-10 lg:p-12 shadow-2xl">
-              <div className="mb-8">
-                <h3 className="text-2xl sm:text-3xl font-bold text-[#103B78] tracking-tight mb-2">
-                  Request a Consultation
-                </h3>
-                <p className="text-xs sm:text-sm text-[#64748B]">
-                  Fill in your details below and a qualified specialist will reach out within one business day.
-                </p>
-              </div>
-
-              {isSubmitted ? (
-                <div className="rounded-2xl bg-blue-50 border border-blue-200 p-8 text-center flex flex-col items-center gap-3">
-                  <CheckCircle2 className="h-12 w-12 text-[#246BFD]" />
-                  <h4 className="text-xl font-bold text-[#103B78]">
-                    Thank You for Reaching Out
-                  </h4>
-                  <p className="text-sm text-[#64748B] max-w-md">
-                    Your inquiry has been received. A Talukdar Finance credit specialist will review your details and contact you shortly.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setIsSubmitted(false)}
-                    className="mt-3 px-5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-[#103B78] hover:bg-slate-50 transition-colors"
-                  >
-                    Submit Another Inquiry
-                  </button>
+          {/* Right Column: Clean Rounded Form */}
+          <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 bg-white">
+            {isSubmitted ? (
+              <div className="py-16 text-center flex flex-col items-center">
+                <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-4">
+                  <CheckCircle2 className="w-7 h-7" />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-                  {/* Row 1: Full Name & Email */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="fullName" className="text-xs font-semibold text-[#172B4D]">
-                        Full Name *
-                      </label>
-                      <input
-                        id="fullName"
-                        type="text"
-                        placeholder="e.g. Liam Smith"
-                        {...register("fullName")}
-                        className="w-full h-11 px-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all"
-                      />
-                      {errors.fullName && (
-                        <p className="text-[11px] font-medium text-red-500">
-                          {errors.fullName.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="email" className="text-xs font-semibold text-[#172B4D]">
-                        Email Address *
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com.au"
-                        {...register("email")}
-                        className="w-full h-11 px-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all"
-                      />
-                      {errors.email && (
-                        <p className="text-[11px] font-medium text-red-500">
-                          {errors.email.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Row 2: Phone & Finance Type */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="phone" className="text-xs font-semibold text-[#172B4D]">
-                        Phone Number *
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        placeholder="0400 000 000"
-                        {...register("phone")}
-                        className="w-full h-11 px-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all"
-                      />
-                      {errors.phone && (
-                        <p className="text-[11px] font-medium text-red-500">
-                          {errors.phone.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center justify-between">
-                        <label htmlFor="financeType" className="text-xs font-semibold text-[#172B4D]">
-                          Finance Category *
-                        </label>
-                        {selectedService && (
-                          <span className="text-[10px] font-semibold text-[var(--color-brand-blue)] bg-blue-50 px-2 py-0.5 rounded truncate max-w-[140px]" title={selectedService}>
-                            {selectedService}
-                          </span>
-                        )}
-                      </div>
-                      <select
-                        id="financeType"
-                        defaultValue=""
-                        {...register("financeType")}
-                        disabled={loadingCategories && categories.length === 0}
-                        className="w-full h-11 px-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all cursor-pointer disabled:opacity-60"
-                      >
-                        <option value="" disabled hidden>
-                          {loadingCategories
-                            ? "Loading categories..."
-                            : "Select finance category"}
-                        </option>
-                        {categories.map((cat) => (
-                          <option key={cat.id || cat.slug} value={cat.slug}>
-                            {cat.name}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.financeType && (
-                        <p className="text-[11px] font-medium text-red-500">
-                          {errors.financeType.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Selected Specific Facility Indicator */}
-                  {selectedService && (
-                    <div className="p-3 bg-blue-50/70 border border-blue-100 rounded-xl flex items-center justify-between gap-3 text-xs">
-                      <div className="flex items-center gap-2 text-[#103B78]">
-                        <span className="font-bold">Inquiring for Facility:</span>
-                        <span className="font-semibold">{selectedService}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedService("");
-                          setValue("serviceName", "");
-                        }}
-                        className="text-[11px] text-slate-500 hover:text-red-500 underline"
-                      >
-                        Clear
-                      </button>
-                    </div>
+                <h3 className="text-2xl font-black text-[var(--color-brand-navy)] mb-2">
+                  Consultation Request Received
+                </h3>
+                <p className="text-sm text-slate-600 max-w-md mb-6 leading-relaxed">
+                  Thank you. An accredited finance broker will review your scenario details and contact you via your preferred method within 1 business day.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsSubmitted(false)}
+                  className="px-8 py-3.5 rounded-full bg-[var(--color-brand-navy)] text-white text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-brand-blue)] transition-colors cursor-pointer shadow-md"
+                >
+                  Submit Another Inquiry
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+                {/* Full Name */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Full Name *
+                  </label>
+                  <input
+                    {...register("fullName")}
+                    type="text"
+                    placeholder="e.g. John Doe"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] text-sm shadow-2xs"
+                  />
+                  {errors.fullName && (
+                    <span className="text-xs text-red-600">{errors.fullName.message}</span>
                   )}
+                </div>
 
-                  {/* Preferred Contact Method */}
-                  <div className="flex flex-col gap-2 pt-1">
-                    <span className="text-xs font-semibold text-[#172B4D]">
-                      Preferred Contact Method
-                    </span>
-                    <div className="flex items-center gap-6">
-                      <label className="flex items-center gap-2 text-sm text-[#172B4D] cursor-pointer">
-                        <input
-                          type="radio"
-                          value="phone"
-                          checked={selectedMethod === "phone"}
-                          onChange={() => setValue("contactMethod", "phone")}
-                          className="h-4 w-4 text-[#246BFD] focus:ring-[#246BFD]"
-                        />
-                        <span>Phone Call</span>
-                      </label>
-                      <label className="flex items-center gap-2 text-sm text-[#172B4D] cursor-pointer">
-                        <input
-                          type="radio"
-                          value="email"
-                          checked={selectedMethod === "email"}
-                          onChange={() => setValue("contactMethod", "email")}
-                          className="h-4 w-4 text-[#246BFD] focus:ring-[#246BFD]"
-                        />
-                        <span>Email</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  {/* How Can We Help (Optional Textarea) */}
+                {/* Email & Phone Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="message" className="text-xs font-semibold text-[#172B4D]">
-                      How can we help? (Optional)
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                      Email Address *
                     </label>
-                    <textarea
-                      id="message"
-                      rows={3}
-                      placeholder="Share a quick note about what you're hoping to achieve..."
-                      {...register("message")}
-                      className="w-full p-3.5 rounded-lg bg-[#F3F7FC] border border-slate-200/80 text-sm text-[#172B4D] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#246BFD] transition-all resize-y"
+                    <input
+                      {...register("email")}
+                      type="email"
+                      placeholder="john@example.com"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] text-sm shadow-2xs"
                     />
-                  </div>
-
-                  {/* Privacy Policy Checkbox */}
-                  <div className="flex flex-col gap-1 pt-1">
-                    <label className="flex items-start gap-2.5 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        {...register("agreePrivacy")}
-                        className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#246BFD] focus:ring-[#246BFD]"
-                      />
-                      <span className="text-xs text-[#64748B] leading-relaxed">
-                        I agree to the collection and handling of my information in accordance with the Talukdar Finance Privacy Policy.
-                      </span>
-                    </label>
-                    {errors.agreePrivacy && (
-                      <p className="text-[11px] font-medium text-red-500">
-                        {errors.agreePrivacy.message}
-                      </p>
+                    {errors.email && (
+                      <span className="text-xs text-red-600">{errors.email.message}</span>
                     )}
                   </div>
 
-                  {/* Submit Button with Arrow Indicator */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full h-12 rounded-xl bg-[#246BFD] hover:bg-[#1A54D4] active:scale-[0.99] text-white font-semibold text-sm tracking-wide shadow-md shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
-                    >
-                      <span>Request a Consultation</span>
-                      <Send className="h-4 w-4" />
-                    </button>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                      Phone Number *
+                    </label>
+                    <input
+                      {...register("phone")}
+                      type="tel"
+                      placeholder="0400 000 000"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] text-sm shadow-2xs"
+                    />
+                    {errors.phone && (
+                      <span className="text-xs text-red-600">{errors.phone.message}</span>
+                    )}
                   </div>
-                </form>
-              )}
-            </div>
+                </div>
+
+                {/* Finance Type Selection */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Finance Category *
+                  </label>
+                  <select
+                    {...register("financeType")}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] text-sm bg-white cursor-pointer shadow-2xs"
+                  >
+                    <option value="">Select a loan category</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.slug}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.financeType && (
+                    <span className="text-xs text-red-600">{errors.financeType.message}</span>
+                  )}
+                </div>
+
+                {/* Preferred Contact Method */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Preferred Contact Method
+                  </label>
+                  <div className="flex items-center gap-6 pt-1 text-sm text-slate-700">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        {...register("contactMethod")}
+                        type="radio"
+                        value="phone"
+                        className="text-[var(--color-brand-blue)]"
+                      />
+                      <span>Phone Call</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        {...register("contactMethod")}
+                        type="radio"
+                        value="email"
+                        className="text-[var(--color-brand-blue)]"
+                      />
+                      <span>Email Message</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Additional Notes / Scenario */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Scenario Details (Optional)
+                  </label>
+                  <textarea
+                    {...register("message")}
+                    rows={3}
+                    placeholder="Tell us about the property, loan amount, timeline, or specific questions..."
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] text-sm resize-none shadow-2xs"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 rounded-full bg-[var(--color-brand-navy)] hover:bg-[var(--color-brand-blue)] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-xl disabled:opacity-60"
+                >
+                  <span>{isSubmitting ? "Submitting..." : "Submit Consultation Request"}</span>
+                  <Send className="w-4 h-4" />
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

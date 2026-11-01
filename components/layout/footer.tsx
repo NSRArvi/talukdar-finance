@@ -5,164 +5,127 @@ import { Container } from "@/components/ui/container";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-[var(--color-brand-soft-blue)] text-[var(--color-brand-text)] border-t border-[var(--color-brand-border)]">
+    <footer className="w-full bg-[#02376D] text-white border-t border-blue-900/40">
       <Container size="default" className="pt-16 pb-12">
         {/* Top 4-Column Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-white/10">
           {/* Brand Info & Mission */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="relative h-9 w-[130px] shrink-0">
+          <div className="lg:col-span-4 flex flex-col gap-5">
+            <Link href="/" className="inline-flex items-center">
+              <div className="relative h-11 w-[160px] shrink-0">
                 <Image
-                  src="/tf-logo.png"
+                  src="/Talukder Finance/Talukdar-Finance-Logo-White.png"
                   alt="Talukdar Finance Logo"
                   fill
                   className="object-contain object-left"
-                  sizes="130px"
+                  sizes="160px"
                 />
               </div>
             </Link>
-            <p className="text-sm text-[var(--color-brand-text-muted)] leading-relaxed max-w-sm">
-              Bespoke financial architecture and advisory for Australian residential buyers, property investors, and commercial enterprises. Institutional expertise delivered with private banking discretion.
+            <p className="text-sm text-blue-100/80 leading-relaxed max-w-sm">
+              Accredited finance brokerage connecting Australian home buyers, investors, and business owners with competitive lending solutions across 40+ banks.
             </p>
           </div>
 
-          {/* FINANCE Column */}
-          <div className="lg:col-span-2 flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)]">
-              Finance
+          {/* Navigation Type 1: Main Pages */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300">
+              Navigation
             </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
+            <ul className="flex flex-col gap-3 text-sm text-slate-200">
               <li>
-                <Link
-                  href="/solutions"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Home Loans
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/solutions"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Car Loans
+                <Link href="/solutions" className="hover:text-white transition-colors">
+                  Solutions
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/solutions"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Personal Loans
+                <Link href="/calculators" className="hover:text-white transition-colors">
+                  Loan Calculators
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/solutions"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Business Finance
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* COMPANY Column */}
-          <div className="lg:col-span-2 flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)]">
-              Company
-            </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  About Us
+                <Link href="/insights" className="hover:text-white transition-colors">
+                  Insights
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/steps"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  How It Works
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/approach"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Client Stories
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/faqs"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#consultation"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
+                <Link href="/contact" className="hover:text-white transition-colors">
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* INFORMATION Column */}
-          <div className="lg:col-span-3 flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-navy)]">
+          {/* Navigation Type 2: Resources & Compliance */}
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300">
               Information
             </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-brand-text-muted)]">
+            <ul className="flex flex-col gap-3 text-sm text-slate-200">
               <li>
-                <Link
-                  href="/insights"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Insights
+                <Link href="/terms" className="hover:text-white transition-colors">
+                  Terms &amp; Conditions
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/privacy"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
+                <Link href="/privacy" className="hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/terms"
-                  className="hover:text-[var(--color-brand-blue)] transition-colors"
-                >
-                  Terms of Use
+                <Link href="/faqs" className="hover:text-white transition-colors">
+                  FAQs
                 </Link>
               </li>
             </ul>
           </div>
+
+          {/* Accreditation & Office Column */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300">
+              Office &amp; Accreditation
+            </h4>
+            <div className="flex flex-col gap-3 text-xs text-blue-100/80 leading-relaxed">
+              <p>
+                <strong className="text-white">Office Location:</strong>
+                <br />
+                Suite 15, 186 Queen Street, Campbelltown, NSW 2560
+              </p>
+              <p>
+                <strong className="text-white">Direct Inquiries:</strong>
+                <br />
+                advisory@talukdarfinance.com.au
+              </p>
+              <p>
+                <strong className="text-white">FBAA Accredited:</strong> Finance Brokers Association of Australia Member.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Regulatory & Legal Box */}
-        <div className="rounded-2xl bg-white border border-[var(--color-brand-border)] p-6 sm:p-7 flex flex-col gap-4 shadow-sm">
-          <p className="text-xs text-[var(--color-brand-text-muted)] leading-relaxed">
-            Talukdar Finance Pty Ltd (ABN 00 000 000 000) is an Authorized Credit Representative (CRN 000000) of Australian Lending Licence Group Pty Ltd, Australian Credit Licence (ACL) No. 000000.
-          </p>
-          <p className="text-xs text-[var(--color-brand-text-muted)] leading-relaxed">
-            Disclaimer: The material on this website provides general information only and does not consider your personal objectives, financial situation, or specific needs. All lending applications are subject to credit assessment, verification, and lender approval. Terms, conditions, fees, and charges apply.
-          </p>
-
-          <div className="pt-4 border-t border-[var(--color-brand-border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[var(--color-brand-text-muted)]">
-            <span>© 2026 Talukdar Finance Pty Ltd. All rights reserved.</span>
-            <span>Regulated by the Australian Securities and Investments Commission (ASIC).</span>
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-blue-200/70">
+          <p>© {new Date().getFullYear()} Talukdar Finance. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms &amp; Conditions
+            </Link>
+            <Link href="/faqs" className="hover:text-white transition-colors">
+              FAQs
+            </Link>
           </div>
         </div>
       </Container>

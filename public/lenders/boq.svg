@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+    <rect x="6" y="12" width="26" height="26" rx="5" fill="#002D62" />
+    <text x="10" y="31" font-family="sans-serif" font-weight="900" font-size="14" fill="#ffffff">B</text>
+    <text x="38" y="32" font-family="sans-serif" font-weight="900" font-size="20" fill="#002D62" letter-spacing="1">BOQ</text>
+  </svg>

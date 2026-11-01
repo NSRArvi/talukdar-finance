@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" width="220" height="70">
+    <g transform="translate(14, 20)">
+      <path d="M4 22 C4 12, 16 12, 24 16 C30 20, 30 28, 20 28 Z" fill="#DA1710" />
+      <path d="M26 10 C26 2, 14 2, 6 6 C0 10, 0 18, 10 18 Z" fill="#007DBA" />
+    </g>
+    <text x="54" y="44" font-family="sans-serif" font-weight="800" font-size="26" fill="#00205B" letter-spacing="0.5">resimac</text>
+  </svg>
