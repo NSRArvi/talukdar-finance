@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
           <Link href="/" className="inline-block mb-3">
             <div className="relative h-12 w-[140px]">
               <Image
-                src="/tf-logo.png"
+                src="/Talukder Finance/Talukder-Finance-Logo-Electric-Blue.png"
                 alt="Talukdar Finance Logo"
                 fill
                 priority

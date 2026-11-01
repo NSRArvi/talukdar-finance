@@ -1,7 +1,5 @@
 import * as React from "react";
 import type { Metadata } from "next";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { getLegalDocument } from "@/lib/services";
@@ -58,12 +56,8 @@ export default async function TermsOfUsePage() {
   const content = doc?.content_html || defaultHtml;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      <main className="flex-1">
-        {/* Hero Header */}
-        <div className="bg-[var(--color-brand-soft-blue)] border-b border-slate-200/80 py-12 lg:py-16">
+    <div>
+      <div className="bg-[var(--color-brand-soft-blue)] border-b border-slate-200/80 py-12 lg:py-16">
           <Container size="default">
             <div className="flex flex-col items-start gap-4 max-w-3xl">
               <Link
@@ -104,9 +98,6 @@ export default async function TermsOfUsePage() {
             />
           </Container>
         </Section>
-      </main>
-
-      <Footer />
     </div>
   );
 }

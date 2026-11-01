@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { ConsultationSection } from "@/components/home/consultation-section";
@@ -65,12 +63,9 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
     : "Recent";
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      <main className="flex-1">
-        {/* Breadcrumb Header */}
-        <div className="bg-[var(--color-brand-soft-blue)]/60 border-b border-slate-200/80 py-4">
+    <>
+      {/* Breadcrumb Header */}
+      <div className="bg-[var(--color-brand-soft-blue)]/60 border-b border-slate-200/80 py-4">
           <Container size="default">
             <nav className="flex items-center gap-2 text-xs text-slate-500">
               <Link href="/" className="hover:text-[var(--color-brand-navy)] transition-colors">
@@ -206,10 +201,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
 
         {/* Embedded Consultation Section */}
         <ConsultationSection />
-      </main>
-
-      <Footer />
-    </div>
-  );
+      </>
+    );
 }
 

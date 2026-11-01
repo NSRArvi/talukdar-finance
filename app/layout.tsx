@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import { SiteLayout } from "@/components/layout/site-layout";
 
 // Official Brand Font: Manrope (from Talukder Finance Brand Identity.pdf)
 const manrope = Manrope({
@@ -40,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en-AU" className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-[var(--color-brand-text)] font-sans">
-        {children}
+        <SiteLayout>{children}</SiteLayout>
       </body>
     </html>
   );

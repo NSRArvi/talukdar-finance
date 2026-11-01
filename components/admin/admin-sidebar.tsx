@@ -125,7 +125,7 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
         <Link href="/admin" className="flex items-center gap-3 group">
           <div className="relative h-10 w-28 transition-transform group-hover:scale-102">
             <Image
-              src="/tf-logo.png"
+              src="/Talukder Finance/Talukder-Finance-Logo-Electric-Blue.png"
               alt="Talukdar Finance"
               fill
               className="object-contain object-left"

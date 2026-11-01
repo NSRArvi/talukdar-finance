@@ -2,8 +2,6 @@ import * as React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { ConsultationSection } from "@/components/home/consultation-section";
@@ -29,12 +27,9 @@ export default async function InsightsPage() {
   const posts = await getBlogPosts();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      <main className="flex-1">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-[var(--color-brand-navy)] via-[#0e2c56] to-[#071d33] text-white py-16 lg:py-24 relative overflow-hidden">
+    <>
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-[var(--color-brand-navy)] via-[#0e2c56] to-[#071d33] text-white py-16 lg:py-24 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#246bfd_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
           <Container size="default">
@@ -152,10 +147,7 @@ export default async function InsightsPage() {
 
         {/* Bottom Consultation CTA */}
         <ConsultationSection />
-      </main>
-
-      <Footer />
-    </div>
-  );
+      </>
+    );
 }
 
