@@ -20,6 +20,8 @@ import {
   HelpCircle,
   Scale,
   BookOpen,
+  MapPin,
+  Sparkles,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -79,14 +81,24 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
       title: "Content & Editorial",
       items: [
         {
+          href: "/admin/hero",
+          label: "Hero Slides",
+          icon: Sparkles,
+        },
+        {
           href: "/admin/posts",
-          label: "Articles",
+          label: "Insights",
           icon: BookOpen,
         },
         {
           href: "/admin/faqs",
           label: "FAQs",
           icon: HelpCircle,
+        },
+        {
+          href: "/admin/contact",
+          label: "Contact & Map",
+          icon: MapPin,
         },
         {
           href: "/admin/legal",

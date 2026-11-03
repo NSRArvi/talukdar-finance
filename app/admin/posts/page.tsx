@@ -39,7 +39,7 @@ export default async function AdminPostsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-[var(--color-brand-navy)]">
-              Blog &amp; Market Insights
+              Blogs &amp; Insights
             </h1>
             <p className="text-xs text-[var(--color-brand-text-muted)] mt-1">
               Publish educational articles, interest rate analysis, and property guides for Australian clients.
@@ -70,7 +70,7 @@ export default async function AdminPostsPage() {
         <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs overflow-hidden flex flex-col">
           <div className="p-5 border-b border-slate-100 flex items-center justify-between">
             <h2 className="text-sm font-bold text-[var(--color-brand-navy)]">
-              All Articles ({posts.length})
+              All Blogs &amp; Insights ({posts.length})
             </h2>
           </div>
 

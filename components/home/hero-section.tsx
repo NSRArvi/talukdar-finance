@@ -2,69 +2,34 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import type { HeroSlide } from "@/types";
 
-interface CategoryPill {
-  id: string;
-  label: string;
-  thumb: string;
-  titlePrefix: string;
-  titleHighlight: string;
-  description: string;
-  image: string;
+interface HeroSectionProps {
+  slides?: HeroSlide[];
 }
 
-const pathways: CategoryPill[] = [
-  {
-    id: "residential",
-    label: "Residential",
-    thumb: "/screen.png",
-    titlePrefix: "A better way to finance starts ",
-    titleHighlight: "here.",
-    description:
-      "From first home buyers to seasoned property investors, Talukdar Finance provides clear options, competitive bank comparisons, and dedicated guidance across 40+ accredited lenders.",
-    image: "/screen.png",
-  },
-  {
-    id: "commercial",
-    label: "Commercial",
-    thumb: "/screen 3.png",
-    titlePrefix: "Strategic funding for enterprise ",
-    titleHighlight: "growth.",
-    description:
-      "Working capital, commercial property development, and structured equipment facilities designed to protect cash flow and scale your business.",
-    image: "/screen 3.png",
-  },
-  {
-    id: "asset",
-    label: "Asset Finance",
-    thumb: "/screen 2.png",
-    titlePrefix: "Drive forward with transparent ",
-    titleHighlight: "clarity.",
-    description:
-      "Avoid dealership markups. Fast 24-48h pre-approvals for motor vehicles, yellow goods, and business machinery with flexible chattel mortgages.",
-    image: "/screen 2.png",
-  },
-];
-
-export function HeroSection() {
+export function HeroSection({ slides = [] }: HeroSectionProps) {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [isPaused, setIsPaused] = React.useState<boolean>(false);
 
   // Exact 4-second autoplay loop
   React.useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || slides.length <= 1) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % pathways.length);
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [isPaused]);
+  }, [isPaused, slides.length]);
 
-  const activeData = pathways[currentIndex];
+  if (!slides || slides.length === 0) {
+    return null;
+  }
+
+  const activeData = slides[currentIndex] || slides[0];
 
   const scrollToConsultation = () => {
     const el = document.getElementById("consultation");
@@ -111,9 +76,9 @@ export function HeroSection() {
                     transition={{ duration: 0.35, ease: "easeOut" }}
                     className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] text-white"
                   >
-                    {activeData.titlePrefix}
+                    {activeData.title_prefix}
                     <span className="text-[#38BDF8] inline-block">
-                      {activeData.titleHighlight}
+                      {activeData.title_highlight}
                     </span>
                   </motion.h1>
                 </AnimatePresence>
@@ -170,7 +135,7 @@ export function HeroSection() {
                   className="absolute inset-0 w-full h-full"
                 >
                   <Image
-                    src={activeData.image}
+                    src={activeData.image_url}
                     alt={activeData.label}
                     fill
                     priority
@@ -186,7 +151,7 @@ export function HeroSection() {
 
         {/* Bottom Floating Category Switcher Pills */}
         <div className="relative lg:absolute lg:bottom-6 lg:right-8 z-30 p-4 lg:p-0 flex flex-wrap items-center justify-center lg:justify-end gap-2.5 sm:gap-3 bg-[#0B1528]/60 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border-t lg:border-t-0 border-white/10">
-          {pathways.map((pathway, idx) => {
+          {slides.map((pathway, idx) => {
             const isActive = currentIndex === idx;
             return (
               <button
@@ -201,7 +166,7 @@ export function HeroSection() {
               >
                 <div className="relative w-6 h-6 rounded-full overflow-hidden border border-slate-200 shrink-0">
                   <Image
-                    src={pathway.thumb}
+                    src={pathway.thumb_url}
                     alt={pathway.label}
                     fill
                     className="object-cover"

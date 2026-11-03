@@ -18,9 +18,9 @@ export function LoanCalculatorTool() {
   const [repaymentType, setRepaymentType] = React.useState<"PI" | "IO">("PI");
   const [extraRepayment, setExtraRepayment] = React.useState<number>(0);
 
-  // Car Loan Inputs (Westpac benchmark standard)
+  // Car Loan Inputs (Westpac benchmark standard with $0 deposit default)
   const [carAmount, setCarAmount] = React.useState<number>(35000);
-  const [carDeposit, setCarDeposit] = React.useState<number>(5000);
+  const [carDeposit, setCarDeposit] = React.useState<number>(0);
   const [carRate, setCarRate] = React.useState<number>(7.49);
   const [carTerm, setCarTerm] = React.useState<number>(5);
   const [carFrequency, setCarFrequency] = React.useState<"monthly" | "fortnightly" | "weekly">("monthly");
@@ -156,7 +156,7 @@ export function LoanCalculatorTool() {
               }`}
             >
               <Car className="w-4 h-4" />
-              <span>Car &amp; Asset Loan Calculator</span>
+              <span>Car Loan ($0 Deposit) Calculator</span>
             </button>
           </div>
         </div>
@@ -423,13 +423,18 @@ export function LoanCalculatorTool() {
           <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[32px] sm:rounded-[40px] border border-slate-200/90 overflow-hidden shadow-xl bg-white">
             {/* Left Inputs Column */}
             <div className="lg:col-span-7 p-8 sm:p-12 border-b lg:border-b-0 lg:border-r border-slate-200 bg-[#FBFBFA]">
-              <div className="flex items-center justify-between pb-6 border-b border-slate-200 mb-8">
+              <div className="flex flex-wrap items-center justify-between pb-6 border-b border-slate-200 mb-8 gap-4">
                 <div>
-                  <h3 className="text-2xl font-black text-[var(--color-brand-navy)]">
-                    Car &amp; Asset Finance
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Modeled around Westpac / Tier-1 vehicle lending criteria
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-2xl font-black text-[var(--color-brand-navy)]">
+                      Car &amp; Asset Finance
+                    </h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-[var(--color-brand-blue)] text-[11px] font-extrabold uppercase tracking-wide">
+                      $0 Deposit Available
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    Modeled around Westpac / Tier-1 vehicle lending criteria with zero down payment options
                   </p>
                 </div>
                 <div className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
@@ -469,9 +474,22 @@ export function LoanCalculatorTool() {
                   {/* Cash Deposit / Trade-in */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                        Deposit / Trade-In
-                      </label>
+                      <div className="flex items-center gap-2">
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                          Deposit / Trade-In
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setCarDeposit(0)}
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded transition-colors ${
+                            carDeposit === 0
+                              ? "bg-blue-600 text-white"
+                              : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                          }`}
+                        >
+                          $0 Deposit
+                        </button>
+                      </div>
                       <span className="text-base font-black text-emerald-600">
                         ${carDeposit.toLocaleString()}
                       </span>

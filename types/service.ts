@@ -66,3 +66,33 @@ export interface BlogPost {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface ContactInfo {
+  id: string;
+  office_title: string;
+  address_line1: string;
+  address_line2: string;
+  address_note?: string | null;
+  email: string;
+  email_note?: string | null;
+  phone?: string | null;
+  hours_weekdays: string;
+  hours_weekends: string;
+  hours_note?: string | null;
+  map_query: string;
+  updated_at?: string;
+}
+
+export interface HeroSlide {
+  id: string;
+  label: string;
+  title_prefix: string;
+  title_highlight: string;
+  description: string;
+  image_url: string;
+  thumb_url: string;
+  display_order: number;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}

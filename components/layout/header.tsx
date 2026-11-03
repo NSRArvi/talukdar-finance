@@ -67,7 +67,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative h-10 w-[150px] sm:h-11 sm:w-[170px] shrink-0">
               <Image
-                src="/Talukder Finance/Talukder-Finance-Logo-Electric-Blue.png"
+                src="/Talukder Finance/Talukder-Finance-Blue.png"
                 alt="Talukdar Finance Logo"
                 fill
                 className="object-contain object-left transition-opacity group-hover:opacity-90"

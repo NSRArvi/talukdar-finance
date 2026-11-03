@@ -82,7 +82,7 @@ export function CalculatorHeroBanner() {
               </div>
               <div className="flex items-center gap-2">
                 <Car className="w-4 h-4 text-[#38BDF8]" />
-                <span>Westpac Car Loan Benchmark</span>
+                <span>$0 Deposit Car Finance</span>
               </div>
               <div className="flex items-center gap-2">
                 <Percent className="w-4 h-4 text-[#38BDF8]" />

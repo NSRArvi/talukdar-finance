@@ -2,11 +2,15 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, MapPin, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { motion } from "motion/react";
+import type { ContactInfo } from "@/types";
 
-export function ContactHeroBanner() {
+interface ContactHeroBannerProps {
+  contactInfo?: ContactInfo;
+}
+
+export function ContactHeroBanner({ contactInfo }: ContactHeroBannerProps) {
   const scrollToForm = () => {
     const el = document.getElementById("contact-form");
     el?.scrollIntoView({ behavior: "smooth" });
@@ -48,37 +52,44 @@ export function ContactHeroBanner() {
                 Have a question about your borrowing capacity, interest rates, or a complex scenario? Speak directly with an accredited finance broker. No call centers, no obligation.
               </motion.p>
 
-              {/* Action Button */}
+              {/* Actions */}
               <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                 <button
                   type="button"
                   onClick={scrollToForm}
                   className="inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#38BDF8] hover:bg-[#7DD3FC] text-[#0B1528] text-sm sm:text-base font-bold transition-all duration-200 cursor-pointer shadow-lg hover:shadow-cyan-500/25 group"
                 >
-                  <span>Send a message</span>
+                  <span>Leave an inquiry</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
+
+                <a
+                  href={`tel:${contactInfo?.phone || "1300000000"}`}
+                  className="text-sm sm:text-base font-semibold text-white/90 hover:text-white underline underline-offset-8 decoration-white/40 hover:decoration-white transition-colors cursor-pointer"
+                >
+                  Call {contactInfo?.phone || "1300 000 000"}
+                </a>
               </div>
             </div>
 
-            {/* Bottom Highlights */}
+            {/* Bottom Highlights Bar */}
             <div className="pt-8 border-t border-white/10 mt-8 flex flex-wrap items-center gap-6 text-xs text-slate-300 font-medium">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#38BDF8]" />
-                <span>Campbelltown NSW Office</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>Rapid Broker Response</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#38BDF8]" />
-                <span>1-on-1 Broker Relationship</span>
+                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                <span>Accredited MFAA / FBAA</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#38BDF8]" />
-                <span>Rapid Response</span>
+                <span className="w-2 h-2 rounded-full bg-blue-400" />
+                <span>Zero Obligation Review</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Photo Frame with Floating Campbelltown Badge */}
+          {/* Right Column: Photo Frame with Floating Branch Office Badge */}
           <div className="lg:col-span-5 relative flex items-center justify-end p-4 sm:p-6 lg:p-0 h-full">
             <div className="relative w-full h-[320px] sm:h-[380px] lg:h-full lg:min-h-[500px] overflow-hidden lg:rounded-l-[180px] rounded-[24px] lg:rounded-r-none border-4 sm:border-8 border-white/10 lg:border-r-0 bg-slate-900 shadow-2xl">
               <Image
@@ -92,18 +103,20 @@ export function ContactHeroBanner() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
 
               {/* Float badge */}
-              <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-slate-200 text-[#0B1528] shadow-xl">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-brand-blue)] mb-1">
-                  <MapPin className="w-4 h-4" />
-                  <span>Physical Office</span>
+              {contactInfo && (
+                <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-slate-200 text-[#0B1528] shadow-xl">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-brand-blue)] mb-1">
+                    <MapPin className="w-4 h-4" />
+                    <span>{contactInfo.office_title || "Physical Office"}</span>
+                  </div>
+                  <div className="text-base sm:text-lg font-black text-[var(--color-brand-navy)] leading-tight">
+                    {contactInfo.address_line2}
+                  </div>
+                  <div className="text-xs text-slate-600 mt-1">
+                    {contactInfo.address_line1}
+                  </div>
                 </div>
-                <div className="text-base sm:text-lg font-black text-[var(--color-brand-navy)] leading-tight">
-                  Campbelltown, NSW 2560
-                </div>
-                <div className="text-xs text-slate-600 mt-1">
-                  Suite 15, 186 Queen Street
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -111,4 +124,3 @@ export function ContactHeroBanner() {
     </section>
   );
 }
-

@@ -1,5 +1,6 @@
 export * from "./hero-section";
 export * from "./lender-panel-marquee";
+export * from "./car-loan-feature-section";
 export * from "./glance-section";
 export * from "./stand-by-section";
 export * from "./loan-solutions-section";

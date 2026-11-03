@@ -1,6 +1,7 @@
 import {
   HeroSection,
   LenderPanelMarquee,
+  CarLoanFeatureSection,
   GlanceSection,
   StandBySection,
   LoanSolutionsSection,
@@ -11,12 +12,18 @@ import {
   FAQSection,
   ConsultationSection,
 } from "@/components/home";
+import { getHeroSlides } from "@/lib/services";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const heroSlides = await getHeroSlides();
+
   return (
     <>
-      <HeroSection />
+      <HeroSection slides={heroSlides} />
       <LenderPanelMarquee />
+      <CarLoanFeatureSection />
       <GlanceSection />
       <StandBySection />
       <LoanSolutionsSection />

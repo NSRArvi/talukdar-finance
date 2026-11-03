@@ -1,5 +1,14 @@
 import { createClient } from "@/lib/supabase/server";
-import type { ServiceItem, ServiceCategory, FinanceOption, FAQItem, LegalDocument, BlogPost } from "@/types";
+import type {
+  ServiceItem,
+  ServiceCategory,
+  FinanceOption,
+  FAQItem,
+  LegalDocument,
+  BlogPost,
+  ContactInfo,
+  HeroSlide,
+} from "@/types";
 
 /**
  * Fetch all services directly from Supabase server database.
@@ -210,4 +219,108 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   }
 
   return null;
+}
+
+/**
+ * Default fallback contact info
+ */
+export const defaultContactInfo: ContactInfo = {
+  id: "primary",
+  office_title: "Campbelltown Office",
+  address_line1: "Suite 15, 186 Queen Street",
+  address_line2: "Campbelltown, NSW 2560",
+  address_note: "Convenient parking & public transit nearby",
+  email: "advisory@talukdarfinance.com.au",
+  email_note: "Responds within 1 business day",
+  phone: "1300 000 000",
+  hours_weekdays: "9:00 AM – 6:00 PM AEST",
+  hours_weekends: "Weekend consultations by appointment",
+  hours_note: "After-hours calls available on request",
+  map_query: "Suite 15, 186 Queen Street, Campbelltown, NSW 2560",
+};
+
+/**
+ * Fetch contact details from Supabase with safe fallback
+ */
+export async function getContactInfo(): Promise<ContactInfo> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("contact_info")
+      .select("*")
+      .eq("id", "primary")
+      .single();
+
+    if (!error && data) {
+      return data as ContactInfo;
+    }
+  } catch (err) {
+    console.error("Supabase getContactInfo failure:", err);
+  }
+
+  return defaultContactInfo;
+}
+
+/**
+ * Default fallback hero pathways
+ */
+export const defaultHeroSlides: HeroSlide[] = [
+  {
+    id: "car-finance",
+    label: "Car Loans ($0 Deposit)",
+    thumb_url: "/screen 2.png",
+    title_prefix: "Drive away sooner with ",
+    title_highlight: "$0 Deposit.",
+    description:
+      "Specialist vehicle finance with $0 deposit options, fast 24-48h pre-approvals, and competitive interest rates across 40+ Australian lenders. Skip dealership markups.",
+    image_url: "/screen 2.png",
+    display_order: 1,
+    is_active: true,
+  },
+  {
+    id: "residential",
+    label: "Residential Home Loans",
+    thumb_url: "/screen.png",
+    title_prefix: "A better way to finance starts ",
+    title_highlight: "here.",
+    description:
+      "From first home buyers to seasoned property investors, Talukdar Finance provides clear options, competitive bank comparisons, and dedicated guidance across 40+ accredited lenders.",
+    image_url: "/screen.png",
+    display_order: 2,
+    is_active: true,
+  },
+  {
+    id: "commercial",
+    label: "Commercial & Business",
+    thumb_url: "/screen 3.png",
+    title_prefix: "Strategic funding for enterprise ",
+    title_highlight: "growth.",
+    description:
+      "Working capital, commercial property development, and structured equipment facilities designed to protect cash flow and scale your business.",
+    image_url: "/screen 3.png",
+    display_order: 3,
+    is_active: true,
+  },
+];
+
+/**
+ * Fetch hero pathways / slides from Supabase with safe fallback
+ */
+export async function getHeroSlides(): Promise<HeroSlide[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("hero_slides")
+      .select("*")
+      .eq("is_active", true)
+      .order("display_order", { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      return data as HeroSlide[];
+    }
+  } catch (err) {
+    console.error("Supabase getHeroSlides failure:", err);
+  }
+
+  return defaultHeroSlides;
 }
