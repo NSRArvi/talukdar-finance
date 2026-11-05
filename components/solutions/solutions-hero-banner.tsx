@@ -95,7 +95,7 @@ export function SolutionsHeroBanner() {
           <div className="lg:col-span-5 relative flex items-center justify-end p-4 sm:p-6 lg:p-0 h-full">
             <div className="relative w-full h-[320px] sm:h-[380px] lg:h-full lg:min-h-[500px] overflow-hidden lg:rounded-l-[180px] rounded-[24px] lg:rounded-r-none border-4 sm:border-8 border-white/10 lg:border-r-0 bg-slate-900 shadow-2xl">
               <Image
-                src="/screen.png"
+                src="/Comprehensive finance tailored to your future.png"
                 alt="Talukdar Finance Lending Solutions"
                 fill
                 priority
@@ -105,12 +105,12 @@ export function SolutionsHeroBanner() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
 
               {/* Float badge */}
-              <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 border border-slate-200 text-[#0B1528] shadow-xl">
+              {/* <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 border border-slate-200 text-[#0B1528] shadow-xl">
                 <div className="text-xl sm:text-2xl font-black">40+ Bank Partners</div>
                 <div className="text-xs text-slate-600 mt-0.5">
                   Big Four, regional mutuals, and specialist non-bank funds.
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

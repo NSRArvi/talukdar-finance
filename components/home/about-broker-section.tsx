@@ -17,14 +17,15 @@ export function AboutBrokerSection() {
       <Container size="default">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left: Professional Broker Portrait with Rounded 3xl Frame */}
-          <div className="lg:col-span-5 relative aspect-[4/5] sm:min-h-[500px] rounded-[32px] sm:rounded-[40px] border border-slate-200/90 bg-slate-100 overflow-hidden shadow-xl">
+          <div className="lg:col-span-5 relative aspect-[4/5] sm:min-h-[500px] rounded-[32px] sm:rounded-[40px] border border-slate-200/90 overflow-hidden shadow-xl">
             <Image
-              src="/about.png"
+              src="/Mantasha.jpeg"
               alt="Talukdar Finance Principal Mortgage & Finance Specialist"
               fill
-              className="object-cover object-top"
+              className="object-cover object-[center_20%]"
               sizes="(max-width: 1024px) 100vw, 500px"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
             <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 p-5 shadow-lg">
               <h3 className="text-xl font-bold text-[var(--color-brand-navy)]">
                 Mantasha Alam Tonni

@@ -23,7 +23,7 @@ const pillars: StandByPillar[] = [
     description:
       "Comparing 40+ lenders yourself is a full-time job. We streamline documentation, calculate accurate borrowing capacities, and manage back-and-forth bank queries directly.",
     badge: "Fast-Track Approval",
-    image: "/screen.png",
+    image: "/The Promises We Make to You/Save You Time.png",
   },
   {
     number: "02",
@@ -32,7 +32,7 @@ const pillars: StandByPillar[] = [
     description:
       "No confusing bank jargon, no hidden commission bias. We present verified lending comparisons and explain all terms in plain, straightforward language.",
     badge: "Consumer Protection",
-    image: "/screen 2.png",
+    image: "/The Promises We Make to You/Keep You Safe.png",
   },
   {
     number: "03",
@@ -41,7 +41,7 @@ const pillars: StandByPillar[] = [
     description:
       "Whether you need a prime home mortgage, self-employed low-doc loan, SMSF financing, or business cashflow facility, we unlock multiple lending pathways.",
     badge: "40+ Bank Access",
-    image: "/screen 3.png",
+    image: "/The Promises We Make to You/Diverse Lender Options.png",
   },
   {
     number: "04",
@@ -50,7 +50,7 @@ const pillars: StandByPillar[] = [
     description:
       "When market interest rates shift, we review your loan regularly to ensure your terms remain competitive over the life of your facility.",
     badge: "Ongoing Loan Reviews",
-    image: "/about.png",
+    image: "/The Promises We Make to You/Lifetime Partnership.png",
   },
 ];
 
@@ -137,10 +137,10 @@ export function StandBySection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 640px) 320px, 460px"
                 />
-                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-[var(--color-brand-navy)] shadow-xs">
+                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-[var(--color-brand-navy)] shadow-xs">
                   {pillar.badge}
                 </div>
-                <div className="absolute top-4 right-4 text-3xl font-black text-white/95 drop-shadow-md">
+                <div className="absolute top-4 left-4 text-3xl font-black text-white/95 drop-shadow-md">
                   {pillar.number}
                 </div>
               </div>

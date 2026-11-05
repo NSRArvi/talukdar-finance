@@ -95,7 +95,7 @@ export function CalculatorHeroBanner() {
           <div className="lg:col-span-5 relative flex items-center justify-end p-4 sm:p-6 lg:p-0 h-full">
             <div className="relative w-full h-[320px] sm:h-[380px] lg:h-full lg:min-h-[500px] overflow-hidden lg:rounded-l-[180px] rounded-[24px] lg:rounded-r-none border-4 sm:border-8 border-white/10 lg:border-r-0 bg-slate-900 shadow-2xl">
               <Image
-                src="/screen 2.png"
+                src="/Calculate repayments with confidence & clarity.png"
                 alt="Talukdar Finance Repayment Calculators"
                 fill
                 priority
@@ -105,7 +105,7 @@ export function CalculatorHeroBanner() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
 
               {/* Float badge */}
-              <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 border border-slate-200 text-[#0B1528] shadow-xl">
+              {/* <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 border border-slate-200 text-[#0B1528] shadow-xl">
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-brand-blue)] mb-1">
                   <Calculator className="w-4 h-4" />
                   <span>Interactive Estimator</span>
@@ -116,7 +116,7 @@ export function CalculatorHeroBanner() {
                 <div className="text-xs text-slate-600 mt-0.5">
                   Principal &amp; Interest, Interest-Only, and Balloon Scenarios.
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

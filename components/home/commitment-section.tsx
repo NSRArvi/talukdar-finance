@@ -19,7 +19,7 @@ interface CommitmentPillar {
 
 const pillars: CommitmentPillar[] = [
   {
-    tag: "DISCOVERY & PERSONALISED ADVISORY",
+    tag: "PERSONALISED ADVISORY",
     number: "01",
     title: "Guidance That Starts With You",
     subtitle: "Your borrowing strategy built around your individual ambitions.",
@@ -30,7 +30,7 @@ const pillars: CommitmentPillar[] = [
       "Tailored loan structuring across 40+ banks",
       "Comprehensive tax & entity review (PAYG & Self-Employed)",
     ],
-    image: "/screen.png",
+    image: "/A More Personal Approach to Finance/Guidance That Starts With You.png",
     accentBg: "bg-white",
     badgeColor: "bg-blue-50 text-[var(--color-brand-blue)] border-blue-200",
   },
@@ -46,7 +46,7 @@ const pillars: CommitmentPillar[] = [
       "Transparent breakdown of lender turnaround times",
       "Zero hidden commissions or lender lock-ins",
     ],
-    image: "/screen 2.png",
+    image: "/A More Personal Approach to Finance/Clear, Informed Decisions.png",
     accentBg: "bg-[#FBFBFA]",
     badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
@@ -62,7 +62,7 @@ const pillars: CommitmentPillar[] = [
       "Seamless liaison with your legal conveyancer",
       "Proactive post-settlement annual rate reviews",
     ],
-    image: "/screen 3.png",
+    image: "/A More Personal Approach to Finance/Support Through Every Milestone.png",
     accentBg: "bg-white",
     badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
   },
@@ -82,9 +82,9 @@ export function CommitmentSection() {
   return (
     <section id="commitment" className="py-20 lg:py-28 bg-[#FBFBFA] border-b border-slate-200">
       <Container size="default">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="space-y-6">
           {/* Left Column: Sticky Section Header on Desktop */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 flex flex-col items-start">
+          <div className="flex flex-col items-start">
             {/* LMG Style Pill Badge */}
             <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-800 tracking-wider mb-5">
               Our Advisory Approach
@@ -119,7 +119,7 @@ export function CommitmentSection() {
           </div>
 
           {/* Right Column: Card Stacking Track (Each card sticks and stacks as user scrolls) */}
-          <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-12 pb-12">
+          <div className="flex flex-col gap-8 lg:gap-12 pb-12">
             {pillars.map((pillar, idx) => {
               // Progressive sticky top offset creates the true card-stacking depth effect
               const topOffset = 110 + idx * 28;
@@ -148,9 +148,9 @@ export function CommitmentSection() {
                       <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-brand-navy)] tracking-tight mb-2">
                         {pillar.title}
                       </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-[var(--color-brand-blue)] mb-4">
+                      {/* <p className="text-xs sm:text-sm font-semibold text-[var(--color-brand-blue)] mb-4">
                         {pillar.subtitle}
-                      </p>
+                      </p> */}
                       <p className="text-sm text-slate-600 leading-relaxed mb-6">
                         {pillar.description}
                       </p>
