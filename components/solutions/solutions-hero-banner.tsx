@@ -103,14 +103,6 @@ export function SolutionsHeroBanner() {
                 sizes="(max-width: 1024px) 100vw, 550px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
-
-              {/* Float badge */}
-              {/* <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 border border-slate-200 text-[#0B1528] shadow-xl">
-                <div className="text-xl sm:text-2xl font-black">40+ Bank Partners</div>
-                <div className="text-xs text-slate-600 mt-0.5">
-                  Big Four, regional mutuals, and specialist non-bank funds.
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

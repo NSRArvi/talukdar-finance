@@ -101,22 +101,6 @@ export function ContactHeroBanner({ contactInfo }: ContactHeroBannerProps) {
                 sizes="(max-width: 1024px) 100vw, 550px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/80 via-transparent to-transparent pointer-events-none" />
-
-              {/* Float badge */}
-              {/* {contactInfo && (
-                <div className="absolute bottom-6 left-6 right-6 lg:left-12 lg:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-slate-200 text-[#0B1528] shadow-xl">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-brand-blue)] mb-1">
-                    <MapPin className="w-4 h-4" />
-                    <span>{contactInfo.office_title || "Physical Office"}</span>
-                  </div>
-                  <div className="text-base sm:text-lg font-black text-[var(--color-brand-navy)] leading-tight">
-                    {contactInfo.address_line2}
-                  </div>
-                  <div className="text-xs text-slate-600 mt-1">
-                    {contactInfo.address_line1}
-                  </div>
-                </div>
-              )} */}
             </div>
           </div>
         </div>

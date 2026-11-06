@@ -95,7 +95,7 @@ export function AboutHeroBanner() {
           <div className="lg:col-span-5 relative flex items-center justify-end p-4 sm:p-6 lg:p-0 h-full">
             <div className="relative w-full h-[360px] sm:h-[440px] lg:h-full lg:min-h-[500px] overflow-hidden lg:rounded-l-[180px] rounded-[24px] lg:rounded-r-none border-4 sm:border-8 border-white/10 lg:border-r-0 shadow-2xl">
               <Image
-                src="/Mantasha.jpeg"
+                src="/Mantasha-Sits.png"
                 alt="Mantasha Alam Tonni - Director & Mortgage Broker"
                 fill
                 priority
@@ -103,16 +103,6 @@ export function AboutHeroBanner() {
                 sizes="(max-width: 1024px) 100vw, 550px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/85 via-transparent to-transparent pointer-events-none" />
-
-              {/* Float badge */}
-              <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 lg:p-4.5 border border-slate-200/90 text-[#0B1528] shadow-2xl">
-                <div className="text-base sm:text-lg lg:text-xl font-black tracking-tight leading-tight">
-                  Mantasha Alam Tonni
-                </div>
-                <div className="text-[11px] sm:text-xs text-[var(--color-brand-blue)] font-bold uppercase tracking-wider mt-1 leading-snug">
-                  Director &amp; Mortgage Broker • FBAA Accredited
-                </div>
-              </div>
             </div>
           </div>
         </div>
