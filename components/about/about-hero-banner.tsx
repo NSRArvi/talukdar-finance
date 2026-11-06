@@ -95,7 +95,7 @@ export function AboutHeroBanner() {
           <div className="lg:col-span-5 relative flex items-center justify-end p-4 sm:p-6 lg:p-0 h-full">
             <div className="relative w-full h-[360px] sm:h-[440px] lg:h-full lg:min-h-[500px] overflow-hidden lg:rounded-l-[180px] rounded-[24px] lg:rounded-r-none border-4 sm:border-8 border-white/10 lg:border-r-0 shadow-2xl">
               <Image
-                src="/Mantasha-Sits.png"
+                src="/Mantasha-self.jpeg"
                 alt="Mantasha Alam Tonni - Director & Mortgage Broker"
                 fill
                 priority

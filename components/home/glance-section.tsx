@@ -96,7 +96,7 @@ export function GlanceSection() {
             {/* Primary Center Image (Rounded vertical portrait) */}
             <div className="relative w-64 sm:w-76 lg:w-80 h-80 sm:h-96 lg:h-[420px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 bg-slate-100 z-10">
               <Image
-                src="/Mantasha.jpeg"
+                src="/Mantasha-logo.jpeg"
                 alt="Talukdar Finance Principal Broker"
                 fill
                 className="object-cover object-top"
