@@ -107,6 +107,11 @@ export function Footer() {
                 advisory@talukdarfinance.com.au
               </p>
               <p>
+                <strong className="text-white">Licensing &amp; Legal Entity:</strong>
+                <br />
+                MMA GLOBAL PTY LIMITED trading as Talukder Finance (Since 2021). ACR #567708 under ACL #577112.
+              </p>
+              <p>
                 <strong className="text-white">FBAA Accredited:</strong> Finance Brokers Association of Australia Member.
               </p>
             </div>

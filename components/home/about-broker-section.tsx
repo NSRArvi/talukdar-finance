@@ -62,19 +62,31 @@ export function AboutBrokerSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                 <div className="p-6 rounded-2xl border border-slate-200/90 bg-white shadow-xs">
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                    Accreditation
+                    Regulatory Licensing
                   </div>
                   <div className="text-sm font-bold text-[var(--color-brand-navy)]">
-                    FBAA Member &amp; ASIC Regulated
+                    MMA GLOBAL PTY LIMITED
+                  </div>
+                  <div className="text-xs text-slate-500 font-medium mt-1">
+                    Trading as Talukder Finance (Since 2021)
+                  </div>
+                  <div className="text-xs font-bold text-[var(--color-brand-blue)] mt-2">
+                    ACR: 567708 • ACL: 577112
                   </div>
                 </div>
 
                 <div className="p-6 rounded-2xl border border-slate-200/90 bg-white shadow-xs">
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                    Credentials
+                    Industry Memberships
                   </div>
                   <div className="text-sm font-bold text-[var(--color-brand-navy)]">
-                    Cert IV FMB | AML/CTF | BID
+                    FBAA Member &amp; ASIC Regulated
+                  </div>
+                  <div className="text-xs text-slate-500 font-medium mt-1">
+                    Cert IV FMB | AML/CTF | BID Compliant
+                  </div>
+                  <div className="text-xs font-semibold text-emerald-600 mt-2">
+                    • 100% Best-Interests Duty Governed
                   </div>
                 </div>
               </div>
