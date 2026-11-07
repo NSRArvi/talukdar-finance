@@ -151,7 +151,7 @@ export function StandBySection() {
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-brand-navy)] tracking-tight">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm font-semibold text-[var(--color-brand-blue)] mt-2">
+                  <p className="text-sm font-semibold text-gray-600 mt-2">
                     {pillar.subtitle}
                   </p>
                   <p className="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
