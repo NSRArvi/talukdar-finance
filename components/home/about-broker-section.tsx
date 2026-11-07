@@ -19,7 +19,7 @@ export function AboutBrokerSection() {
           {/* Left: Professional Broker Portrait with Rounded 3xl Frame */}
           <div className="lg:col-span-5 relative aspect-[4/5] sm:min-h-[500px] rounded-[32px] sm:rounded-[40px] border border-slate-200/90 overflow-hidden shadow-xl">
             <Image
-              src="/Mantasha-stands.png"
+              src="/Mantasha-Stands.png"
               alt="Talukdar Finance Principal Mortgage & Finance Specialist"
               fill
               className="object-cover object-[center_20%]"
